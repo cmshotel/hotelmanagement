@@ -265,7 +265,7 @@ roompr=jsarr[temp].roomprice
 				totgststay+=(parseFloat(exbedcharge)*noofexbed)*gststay/100.0;
 				
 				//child with extra bed
-				totgstfood+=(parseFloat(planbase)*noofexbed/(4*(parseFloat(document.getElementById('norooms').value))))*gstfood/100.0;
+				totgstfood+=(parseFloat(planbase)*cwex/(4*(parseFloat(document.getElementById('norooms').value))))*gstfood/100.0;
 				
 				//child with exbed stay
 				totgststay+=(parseFloat(exbedcharge)*cwex)*gststay/100.0;
