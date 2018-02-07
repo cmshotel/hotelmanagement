@@ -297,6 +297,7 @@ roompr=jsarr[temp].roomprice
 			email=document.getElementsByName('email')[0].value
 			bookdate=document.getElementsByName('bookdate')[0].value
 			rooms=document.getElementsByName('norooms')[0].value
+			resdate = document.getElementsByName('resdate')[0].value
 			chkin=document.getElementsByName('chkindate')[0].value
 			chkout=document.getElementsByName('chkoutdate')[0].value
 			x=(document.getElementById('nightcount').innerHTML).split(" ") 
