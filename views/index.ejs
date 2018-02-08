@@ -212,11 +212,12 @@
                             <div class="modal-body">
                                 <div id="testmodal" style="padding: 5px 20px;">
                                     <form id="antoform" class="form-horizontal calender" role="form">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Booking_id</label>
-                                            <label class="col-sm-3 control-label">Customer_Name</label>
-                                            <label class="col-sm-3 control-label">Check_In/Out</label>
-                                        </div>
+                                        <!-- <div class="form-group">
+                                            <label class="col-sm-4 control-label">Booking_id</label>
+                                            <label class="col-sm-4 control-label">Customer_Name</label>
+                                            <label class="col-sm-4 control-label">Check_In/Out</label>
+                                        </div> -->
+                                        <div id="calendervalues"></div>
                                     </form>
                                 </div>
                             </div>
@@ -239,13 +240,16 @@
                             </div>
                             <div class="modal-body">
                                 <div id="testmodal2" style="padding: 5px 20px;">
-                                    <form id="antoform2" class="form-horizontal calender" role="form">
+                                    <div id="calendervalues">
+
+                                    </div>
+                                    <!-- <form id="antoform2" class="form-horizontal calender" role="form">
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Booking_id</label>
                                             <label class="col-sm-3 control-label">Customer_Name</label>
                                             <label class="col-sm-3 control-label">Check_In/Out</label>
                                         </div>
-                                    </form>
+                                    </form> -->
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -445,10 +449,11 @@
     <!-- bootstrap-daterangepicker -->
     <script src="/moment/min/moment.min.js"></script>
     <script src="/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="/js/custom.min.js"></script>
+    
     <!-- FullCalendar -->
     <script src="/moment/min/moment.min.js"></script>
     <script src="/fullcalendar/dist/fullcalendar.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="/js/custom.js"></script>
   </body>
 </html>
