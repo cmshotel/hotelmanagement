@@ -23,8 +23,14 @@
     <link href="/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="/css/custom.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
   </head>
 
   <body class="nav-md">
@@ -40,12 +46,54 @@
         <!-- page content -->
         <div class="right_col" role="main">
             <div id="maincontent">
-                <h2>View Bookings</h2>
+              <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                  <div class="card-box table-responsive">
+                      <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                        <thead>
+                          <th>BookingID</th>
+                          <th>Name</th>
+                          <th>Check In</th>
+                          <th>Check Out</th>
+                          <th>contact</th>
+                          <th>email</th>
+                          <th>Booked Date</th>
+                          <th>Rooms</th>
+                          <th>Nights</th>
+                          <th>Catagory</th>
+                          <th>Plan</th>
+                          <th>Extra Bed</th>
+                          <th>Child With E-Bed</th>
+                          <th>Child Without E-Bed</th>
+                          <th>Room Price</th>
+                          <th>Total Room Price</th>
+                          <th>Plan Charges</th>>
+                          <th>Extra Bed Charge</th>
+                          <th>Extra Bed Charge(With Child)</th>
+                          <th>Extra Bed Charge(Without Child)</th>
+                          <th>Hotel Price</th>
+                          <th>Stay SGST</th>
+                          <th>Food SGST</th>
+                          <th>Stay GST</th>
+                          <th>Food GST</th>
+                          <th>Total GST</th>
+                          <th>Total Amount</th>
+                          <th>Paid</th>
+                          <th>Payment Info</th>
+                          <th>Status</th>
+                        </thead>
+                      </table>
+                  </div>
+                </div>
+              </div>
+
+              
+               <!--  <h2>View Bookings</h2>
                 Select option&emsp;<select id="optionswise"  onchange="loadfilter()"><option  selected></option><option value="bookdatewise" >Booking Date wise</option><option value="chkindatewise">Checkin date wise</option></select><br><br>
                 <div id="filterhold"></div><br><br>
 
                 <div id="selecthold"></div><br><br>
-                <div id="detailshold"></div>
+                <div id="detailshold"></div> -->
             </div>    
         </div>
         <!-- /page content -->
@@ -69,36 +117,31 @@
     <script src="/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="/Chart.js/dist/Chart.min.js"></script>
-    <!-- gauge.js -->
-    <script src="/gauge.js/dist/gauge.min.js"></script>
     <!-- bootstrap-progressbar -->
     <script src="/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
     <!-- iCheck -->
     <script src="/iCheck/icheck.min.js"></script>
-    <!-- Skycons -->
-    <script src="/skycons/skycons.js"></script>
-    <!-- Flot -->
-    <script src="/Flot/jquery.flot.js"></script>
-    <script src="/Flot/jquery.flot.pie.js"></script>
-    <script src="/Flot/jquery.flot.time.js"></script>
-    <script src="/Flot/jquery.flot.stack.js"></script>
-    <script src="/Flot/jquery.flot.resize.js"></script>
-    <!-- Flot plugins -->
-    <script src="/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-    <script src="/flot-spline/js/jquery.flot.spline.min.js"></script>
-    <script src="/flot.curvedlines/curvedLines.js"></script>
     <!-- DateJS -->
     <script src="/DateJS/build/date.js"></script>
-    <!-- JQVMap -->
-    <script src="/jqvmap/dist/jquery.vmap.js"></script>
-    <script src="/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-    <script src="/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
     <!-- bootstrap-daterangepicker -->
     <script src="/moment/min/moment.min.js"></script>
     <script src="/bootstrap-daterangepicker/daterangepicker.js"></script>
-
+    <!-- Datatables -->
+    <script src="/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<!--     <script src="/jszip/dist/jszip.min.js"></script>
+    <script src="/pdfmake/build/pdfmake.min.js"></script>
+    <script src="/pdfmake/build/vfs_fonts.js"></script> -->
     <!-- Custom Theme Scripts -->
     <script src="/js/custom.min.js"></script>
     <!-- Custom history fetch Scripts -->

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>CMS\Tourism</title>
+        <link rel="stylesheet" type="text/css" href="plugins/bootstrap-3.3.6/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="plugins/font-awesome-4.5.0/css/font-awesome.min.css" />
+        <!-- Start of KEditor styles -->
+        <link rel="stylesheet" type="text/css" href="../dist/css/keditor-1.1.5.min.css" />
+        <link rel="stylesheet" type="text/css" href="../dist/css/keditor-components-1.1.5.min.css" />
+        <!-- End of KEditor styles -->
+        <link rel="stylesheet" type="text/css" href="css/examples.css" />
+        <script type="text/javascript" src="plugins/jquery-1.11.3/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="../examples/plugins/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            var bsTooltip = $.fn.tooltip;
+            var bsButton = $.fn.button;
+        </script>
+        <script src="plugins/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+            $.widget.bridge('uibutton', $.ui.button);
+            $.widget.bridge('uitooltip', $.ui.tooltip);
+            $.fn.tooltip = bsTooltip;
+            $.fn.button = bsButton;
+        </script>
+        <script type="text/javascript" src="plugins/jquery.nicescroll-3.6.6/jquery.nicescroll.min.js"></script>
+        <script type="text/javascript" src="plugins/ckeditor-4.5.6/ckeditor.js"></script>
+        <script type="text/javascript" src="plugins/ckeditor-4.5.6/adapters/jquery.js"></script>
+        <!-- Start of KEditor scripts -->
+        <script type="text/javascript" src="../dist/js/keditor-1.1.5.min.js"></script>
+        <script type="text/javascript" src="../dist/js/keditor-components-1.1.5.min.js"></script>
+        <!-- End of KEditor scripts -->
+    </head>
+
+    <body>
+         <div class="btn btn-lg btn-info" class="cntroller" id="content-save-btn">Save</div>
+		 <div class="btn btn-lg btn-info" class="cntroller" id="content-view-btn">View Site</div>
+         
+
+        <div id="content-area">
+        </div>
+        <footer><a href="../login/"><h1>Login</h1></a></footer>
+        
+        <script type="text/javascript">
+
+            $(function() {
+                 $.ajax({
+                    type: 'get',
+                    url: '/',
+                    success:function(data){
+                         $('#content-area').html(data['content']);
+                         if(data['user'] == 'admin'){
+                              $('#content-area').keditor();
+                         }else{
+                              $('#content-save-btn').hide();
+                              $('#content-view-btn').hide();
+                         }
+
+                    }
+                 });
+
+                $('#content-save-btn').click(function(){
+                     console.log($('#content-area').keditor('getContent'));
+                     $.ajax({
+                          type: 'post',
+                          url: 'send-content',
+                          data:{
+                               action: "send-content",
+                               content: $('#content-area').keditor('getContent'),
+                          },
+                          success: function(res){
+
+                          },
+                          error: function(error){
+                              console.log(error);
+                          }
+                     });
+                });
+               $("#content-view-btn").click(function(){
+                    console.info("Good Day");
+                    window.open('https://sitebuild.herokuapp.com/sview', '_blank');
+               });
+            });
+        </script>
+    </body>
+</html>

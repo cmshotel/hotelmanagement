@@ -2403,7 +2403,7 @@ if (typeof NProgress != 'undefined') {
 	   	/* CALENDAR */
 		  
 		    function  init_calendar() {
-					
+		    	
 				if( typeof ($.fn.fullCalendar) === 'undefined'){ return; }
 				console.log('init_calendar');
 					
@@ -2422,11 +2422,49 @@ if (typeof NProgress != 'undefined') {
 				  },
 				  selectable: true,
 				  selectHelper: true,
+
+
+				  /*****************************/
+				  /*****************************/
+				  dayClick: function(date, jsEvent, view) {
+
+                    selected_date=date.format();
+
+                    
+					console.log(selected_date)
+					$.ajax({
+
+					type: "post",
+					url: "/getcheckins",
+					dataType: 'json',
+
+					data: JSON.stringify({
+						"chkindate":selected_date
+					}),
+					contentType: 'application/json',
+					success: function(data) {
+						console.log(data);
+						if(data.length>0){
+							$('#calendervalues').html('<table  id="tab_cal_event" cellpadding="100"></table>');
+
+						for(i=0;i<data.length;i++){
+							chout=new Date(data[i].chkout)
+							dat=chout.getDate()+"-"+(chout.getMonth()+1)+"-"+chout.getFullYear();
+
+								$('#tab_cal_event').append('<tr><td>&emsp;&emsp;'+data[i]._id+'</td><td>&emsp;&emsp;'+data[i].cname+'&emsp;&emsp;</td><td>'+dat+'</td></tr>');
+						}
+					}
+					}});
+                	},
+                    /*****************************/
+                    /*****************************/
+
 				  select: function(start, end, allDay) {
 					$('#fc_create').click();
 
 					started = start;
 					ended = end;
+					
 
 					$(".antosubmit").on("click", function() {
 					  var title = $("#title").val();
@@ -2437,6 +2475,7 @@ if (typeof NProgress != 'undefined') {
 					  categoryClass = $("#event_type").val();
 
 					  if (title) {
+
 						calendar.fullCalendar('renderEvent', {
 							title: title,
 							start: started,
@@ -2446,6 +2485,8 @@ if (typeof NProgress != 'undefined') {
 						  true // make the event "stick"
 						);
 					  }
+
+
 
 					  $('#title').val('');
 
@@ -2458,12 +2499,14 @@ if (typeof NProgress != 'undefined') {
 				  },
 				  eventClick: function(calEvent, jsEvent, view) {
 					$('#fc_edit').click();
-					$('#title2').val(calEvent.title);
 
+					$('#title2').val(calEvent.title);
+						
 					categoryClass = $("#event_type").val();
 
 					$(".antosubmit2").on("click", function() {
 					  calEvent.title = $("#title2").val();
+
 
 					  calendar.fullCalendar('updateEvent', calEvent);
 					  $('.antoclose2').click();
@@ -2472,33 +2515,7 @@ if (typeof NProgress != 'undefined') {
 					calendar.fullCalendar('unselect');
 				  },
 				  editable: true,
-				  events: [{
-					title: 'All Day Event',
-					start: new Date(y, m, 1)
-				  }, {
-					title: 'Long Event',
-					start: new Date(y, m, d - 5),
-					end: new Date(y, m, d - 2)
-				  }, {
-					title: 'Meeting',
-					start: new Date(y, m, d, 10, 30),
-					allDay: false
-				  }, {
-					title: 'Lunch',
-					start: new Date(y, m, d + 14, 12, 0),
-					end: new Date(y, m, d, 14, 0),
-					allDay: false
-				  }, {
-					title: 'Birthday Party',
-					start: new Date(y, m, d + 1, 19, 0),
-					end: new Date(y, m, d + 1, 22, 30),
-					allDay: false
-				  }, {
-					title: 'Click for Google',
-					start: new Date(y, m, 28),
-					end: new Date(y, m, 29),
-					url: 'http://google.com/'
-				  }]
+				
 				});
 				
 			};
