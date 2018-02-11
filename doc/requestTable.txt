@@ -1,0 +1,25 @@
+dashboard
+	->custom.js
+		=>/getcheckins <> 
+
+booking
+	->book.js
+		=> /getgstrate <> /booking/getgstrate
+		=> /dobooking <> /booking/dobooking
+
+	->index.ejs
+		=> /getavail <> /booking/getavai
+		=> /getdate <> /getdate
+	
+	->view-support.js
+		=> /getview(2) <> /history/getview
+
+
+avibility
+	->avail.js
+		=> /getdate
+		=> /checkfilled(2) <> /avibility/checkfilled
+		=> /getcat(2)	<> /avibility/getcat
+		=> /insertavail <> /avibility/insertavail
+		=> /geteditdata <> /avibility/geteditdata
+		=> /updateavail <> /avibility/updateavail
