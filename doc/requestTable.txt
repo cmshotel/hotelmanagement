@@ -14,7 +14,9 @@ booking
 	->view-support.js
 		=> /getview(2) <> /history/getview
 
-
+history	
+	->custom.min.js
+		done=>/getBookData <> /history/getBookData
 avibility
 	->avail.js
 		=> /getdate

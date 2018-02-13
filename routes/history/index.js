@@ -1,14 +1,25 @@
+var mongo = require('mongodb');
+var murl = "mongodb://admin:admin@ds141796.mlab.com:41796/cms";
+
+var bodyParser = require("body-parser");
+var assert = require('assert');
 var express = require('express');
 var router = express.Router();
 
+router.use(function(req, res, next) {
+	console.log('Url is: ' + req.url);
+	next(); // make sure we go to the next routes and don't stop here
+  });
+
 router.get('/', function (req, res) {
 	res.render('history/index');
-	console.log("/history");
+	console.log(new Date()+"/history");
 });
 
 router.post('/getBookedData', function (req, res) {
+	console.log(new Date()+ " POST  /getBookedData");
 	mongo.connect(murl, function (err, db) {
-		assert.equal(null, err);
+		console.log(err);
 		collection = db.collection("booking");
 		collection.find().limit(20).toArray(function (err, docs) {
 
