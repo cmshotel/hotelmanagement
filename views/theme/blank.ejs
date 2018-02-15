@@ -5,8 +5,10 @@
     <meta charset="UTF-8" />
     <title>CMS\Tourism</title>
     <!-- styles file -->
-    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/vendor/font-awesome/css/font-awesome.min.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/vendor/font-awesome/css/font-awesome.min.css" /> -->
+    <link rel="stylesheet" type="text/css" href="plugins/bootstrap-3.3.6/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="plugins/font-awesome-4.5.0/css/font-awesome.min.css" />
     <link href="/vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <link href="/vendor/nprogress/nprogress.css" rel="stylesheet">
 
@@ -236,8 +238,30 @@
 
     <!-- <script type="text/javascript" src="plugins/jquery-1.11.3/jquery-1.11.3.min.js"></script> -->
     <!-- <script type="text/javascript" src="examples/plugins/bootstrap-3.3.6/js/bootstrap.min.js"></script> -->
-    <script type="text/javascript" src="/vendor/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- <script type="text/javascript" src="/vendor/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script> -->
+    <script type="text/javascript" src="plugins/jquery-1.11.3/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="examples/plugins/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            var bsTooltip = $.fn.tooltip;
+            var bsButton = $.fn.button;
+        </script>
+
+
+
+<script type="text/javascript" src="plugins/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $.widget.bridge('uibutton', $.ui.button);
+    $.widget.bridge('uitooltip', $.ui.tooltip);
+    $.fn.tooltip = bsTooltip;
+    $.fn.button = bsButton;
+</script>
+<script type="text/javascript" src="plugins/jquery.nicescroll-3.6.6/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="plugins/ckeditor-4.5.6/ckeditor.js"></script>
+<script type="text/javascript" src="plugins/ckeditor-4.5.6/adapters/jquery.js"></script>
+<script type="text/javascript" src="dist/js/keditor-1.1.5.min.js"></script>
+<script type="text/javascript" src="dist/js/keditor-components-1.1.5.min.js"></script>
+
     <script type="text/javascript" src="/vendor/fastclick/lib/fastclick.js"></script>
     <script type="text/javascript" src="/vendor/nprogress/nprogress.js"></script>
     <script type="text/javascript" src="/vendor/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
@@ -248,30 +272,16 @@
     <script type="text/javascript" src="/book/book.js"></script>
     <script type="text/javascript" src="/js/jquery.smartWizard.js"></script>
 
-    <script type="text/javascript" src="plugins/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-    <!-- <script type="text/javascript" src="plugins/jquery.nicescroll-3.6.6/jquery.nicescroll.min.js"></script> -->
-    <script type="text/javascript" src="plugins/ckeditor-4.5.6/ckeditor.js"></script>
-    <script type="text/javascript" src="plugins/ckeditor-4.5.6/adapters/jquery.js"></script>
-    <script type="text/javascript" src="dist/js/keditor-1.1.5.min.js"></script>
-    <script type="text/javascript" src="dist/js/keditor-components-1.1.5.min.js"></script>\
+    
 
-    <script type="text/javascript">
-        var bsTooltip = $.fn.tooltip;
-        var bsButton = $.fn.button;
-    </script>
-    <script type="text/javascript">
-        $.widget.bridge('uibutton', $.ui.button);
-        $.widget.bridge('uitooltip', $.ui.tooltip);
-        $.fn.tooltip = bsTooltip;
-        $.fn.button = bsButton;
-    </script>
+
+
     <script type="text/javascript">
         $(function () {
             $.ajax({
                 type: 'get',
-                url: '/',
+                url: '/theme',
                 success: function (data) {
-                    // console.log(data)
                     $('#content-area').html(data['content']);
                     $('#content-area').keditor();
                 }

@@ -2768,8 +2768,12 @@ function init_calendar() {
 					"chkindate": selected_date
 				}),
 				contentType: 'application/json',
+				beforeSend: function () {
+					$('#calendervalues').html('<center><img src="images/loader.gif" width="" height""></ceter>');
+				},
 				success: function (data) {
-					console.log(data);
+					if(data.length === 0)
+						$('#calendervalues').html('<h3>Today doesn\'t have any CheckIn/Out activity...</h3>');
 					if (data.length > 0) {
 						$('#calendervalues').html('<div class="table-responsive">\
 						<table class="table table-bordered table-striped jambo_table">\
@@ -2785,12 +2789,10 @@ function init_calendar() {
 						</table>\
 					</div>');
 						for (i = 0; i < data.length; i++) {
-							chout = new Date(data[i].chkout)
-							dat = chout.getDate() + "-" + (chout.getMonth() + 1) + "-" + chout.getFullYear();
 							$('#tData').append('<tr>\
-								<td>'+ data[i]._id +'</td>\
+								<td>' + data[i]['_id'] + '</td>\
 								<td>' + data[i].cname + '</td>\
-								<td>' + dat + '</td>\
+								<td>' + data[i].action + '</td>\
 							</tr>');
 						}
 						$('#calendervalues').append('');

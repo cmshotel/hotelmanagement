@@ -68,7 +68,7 @@ function SmartWizard(target, options) {
         });
         $($this.buttons.finish).click(function() {
             /* ccalled unstructure method from book.js */
-            
+            // $('#quotehold').html('<img src="images/giphy.gif" width="150" height="160">');
             dobooking();
             if(!$(this).hasClass('buttonDisabled')){
                 if($.isFunction($this.options.onFinish)) {

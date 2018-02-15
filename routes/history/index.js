@@ -63,7 +63,7 @@ router.post('/getBookedData', function (req, res) {
 			jso = JSON.parse(JSON.stringify({
 				"data": jso
 			}));
-			console.log(jso);
+			// console.log(jso);
 			res.send(jso);
 		});
 	});

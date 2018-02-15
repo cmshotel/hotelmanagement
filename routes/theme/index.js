@@ -11,22 +11,22 @@ router.get('/', function (req, res, next) {
 		var saved_content;
 		mongo.connect(murl, function (err, db) {
 			db.collection('contents').find().toArray(function (err, result) {
-				if (err) return console.log("Error saving html content into database: " + err);
+				if (err) 
+					return console.log("Error saving html content into database: " + err);
 				if (result != '') {
 					saved_content = result['0'].content;
 					res.setHeader('Access-Control-Allow-Methods', 'GET');
 					res.json({
-						user: uid,
+						// user: uid,
 						content: saved_content
 					});
-					// console.log(result['0'].content);
+					console.log(result['0'].content);
 				} else {
 					//saved_content = ;
 					res.setHeader('Access-Control-Allow-Methods', 'GET');
 					res.json({
 						user: uid
 					});
-					console.log(uid);
 					console.log("no data");
 				}
 			});

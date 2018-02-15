@@ -1,9 +1,11 @@
 var mongo = require('mongodb');
-var murl = "mongodb://admin:admin@ds141796.mlab.com:41796/cms";
+var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
 //var path = require('path');
 var fs = require('fs');
+var assert = require('assert');
 var form = require('../bin/configform');
 var express = require('express');
+var mongoUtil = require('../bin/mongoutil');
 var router = express.Router();
 
 /* GET home page. */
@@ -129,7 +131,7 @@ router.post('/initializedb', function (req, res, next) {
     foodslabs = req.body.foodslabs;
     aname = req.body.aname;
     email = req.body.email;
-    
+
     categ = []
     plan = []
     stayslabarr = []
@@ -211,8 +213,8 @@ router.post('/initializedb', function (req, res, next) {
                         "email": email,
                         "passwd": ""
                     }, function (err) {
-                        if (err) 
-                            throw err; 
+                        if (err)
+                            throw err;
                         db.close();
                     });
                     //use promise
@@ -225,32 +227,75 @@ router.post('/initializedb', function (req, res, next) {
     });
 });
 
-router.post('/getcheckins', function (req, res) {
-    console.log(new Date()+" POST /getcheckins")
+router.post('/getcheckins', function (req, res, next) {
+    console.log(new Date() + " POST /getcheckins")
     chkind = req.body.chkindate;
     console.log(chkind)
-	mongo.connect(murl, function (err, db) {
+    var data = null;
+    mongo.connect(murl, function (err, db) {
         console.log(err)
         assert.equal(null, err);
-		db.collection('booking').find({
-			"chkin": chkind
-		}, {
-			"_id": 1,
-			"cname": 1,
-			"chkout": 1
-		}).toArray(function (err, docs) {
-            console.log(err)
-			assert.equal(null, err);
+        db.collection('booking').find({
+            "$or": [{
+                "chkin": chkind
+            }, {
+                "chkout": chkind
+            }]
+        }, {
+            "_id": 1,
+            "cname": 1,
+            "chkin": 1,
+            "chkout": 1,
+        }).toArray(function (err, docs) {
+            assert.equal(null, err);
             db.close()
-            console.log(docs);
-			// res.send(docs);
-		});
-	});
+            for (i = 0; i < docs.length; i++) {
+                if (docs[i]['chkin'] === chkind)
+                    docs[i]['action'] = 'CheckIn'
+                if (docs[i]['chkout'] === chkind)
+                    docs[i]['action'] = 'CheckOut'
+            }
+            // console.log(docs)
+            res.send(docs);
+        });
+    });
+
+
+
+
 });
 
-router.post('/getdate', function (req, res) {
-	res.send(new Date());
+router.post('/getdate', function (req, res, next) {
+    res.send(new Date());
 });
 
+router.get('/login', function (req, res, next) {
+    res.render('login/index');
+});
 
+router.post('/login', function (req, res, next) {
+ux = req.body.ux;
+uy = req.body.uy;
+mongoUtil.connectToServer(function (err, db) {
+    if (err)
+        throw err;
+    db.collection('users').find({
+        $and: [{
+            'email': ux
+        }, {
+            'passwd': uy
+        }]
+    }, {
+        "name": 1,
+        "role": 1,
+        "email": 1,
+    }).toArray(function (err, docs) {
+        if (err)
+            throw err;
+        console.log(docs)
+        res.send(docs);
+    })
+});
+
+});
 module.exports = router;

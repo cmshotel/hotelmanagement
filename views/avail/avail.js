@@ -33,7 +33,7 @@ function maininsert() {
 }
 
 function mainedit() {
-		$('#maincontent').html('\
+	$('#maincontent').html('\
 	<div class="edit-instruction container">\
 		<div class="col-md-8 col-sm-8 col-xs-12">\
 	  		<div class="input-group ">\
@@ -132,11 +132,10 @@ function loadform() {
 			"to": stayDate[0]
 		}),
 		contentType: 'application/json',
-		complete: function () {
-			// $("#avilLoadder").html();
+		beforeSend: function () {
+			$('#formholder').html('<img src="images/loader.gif" width="" height"">');
 		},
 		success: function (data) {
-
 			// if selected dates has already available data then print "Already Available"
 			if (data.d.localeCompare("available") == 0) {
 				document.getElementById('formholder').innerHTML = "Already available";
@@ -144,9 +143,7 @@ function loadform() {
 			//if selected dates has no available data then create form to insert availability
 			else {
 				//get all catagories and plans available in hotel
-
 				$.ajax({
-
 					type: "post",
 					url: "/avibility/getcat",
 					async: false,
@@ -155,13 +152,15 @@ function loadform() {
 						"any": "any",
 					}),
 					contentType: 'application/json',
+					beforeSend: function () {
+						$('#formholder').html('<img src="images/loading.gif">');
+					},
 					success: function (data) {
-						cat_plans = data;
+						// cat_plans = data;
+						displayform(data);
 					}
-
 				});
-				//display form dynamically
-				displayform(cat_plans);
+				
 			}
 		}
 	});

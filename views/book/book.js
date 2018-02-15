@@ -44,15 +44,15 @@ function showquatation() {
 		$('#quotehold').html('<table cellpadding="5" id="quotetab"></table>')
 
 		var temp = document.getElementsByName('catagory')[0].value;
-		console.log('temp before'+temp)
+		console.log('temp before' + temp)
 		for (i = 0; i < jsarr.length; i++) {
-			
-			if (temp.localeCompare(jsarr[i].catagory)==0) {
+
+			if (temp.localeCompare(jsarr[i].catagory) == 0) {
 				temp = i;
 				break;
 			}
 		}
-		console.log('temp after'+temp)
+		console.log('temp after' + temp)
 		totromcost = jsarr[temp].price
 		//show total price
 		$('#quotetab').append('<tr><td>Total Room(s) Charges (₹) :</td><td><input type="number" min="0" name="roomcost" value="' + totromcost + '"</td></tr>');
@@ -160,9 +160,9 @@ function showquatation() {
 		calculategst()
 	} else {
 		var temp = document.getElementsByName('catagory')[0].value;
-			console.log(jsarr)
+		console.log(jsarr)
 		for (i = 0; i < jsarr.length; i++) {
-			if (temp.localeCompare(jsarr[i].catagory)==0) {
+			if (temp.localeCompare(jsarr[i].catagory) == 0) {
 				temp = i;
 				break;
 			}
@@ -242,7 +242,7 @@ function calculategst() {
 		type: "post",
 		url: "/booking/getgstrate",
 		dataType: 'json',
-		
+
 		data: JSON.stringify({
 			"roompr": roompr
 		}),
@@ -332,12 +332,6 @@ function dobooking() {
 	pmtinfo = document.getElementById('paymentinfo').value
 	paid = document.getElementById('amtpaid').value
 
-
-
-
-
-
-
 	$.ajax({
 
 		type: "post",
@@ -378,20 +372,28 @@ function dobooking() {
 		}),
 		contentType: 'application/json',
 		success: function (data) {
-			console.log(data.response)
+			console.log(data.response + "        " + data);
+
+
+			$("#getCode").html(data.response);
+			$("#getCodeModal").modal('show');
+
+
 			if (data.response.localeCompare("Success") == 0) {
-				$('#mainhold').html('<h2>Rooms Booked Successfully</h2><br><button onclick="location.reload();">Book Another Rooms </button>');
+				$("#getCode").html("<h2 style='color:green;'>Rooms are successfully booked..</h2>");
+				$("#getCodeModal").modal('show');
 			} else if (data.response.localeCompare("available") == 0) {
-				$('#mainhold').html('<h2>Rooms Booked for Customer with same category</h2><br><button onclick="location.reload();">Try Again</button>');
-
+				// $('#mainhold').html('<h2>Rooms Booked for Customer with same category</h2><br><button onclick="location.reload();">Try Again</button>');
 			} else {
-				$('#mainhold').html('<h2>Rooms Not Booked</h2><br><button onclick="location.reload();">Try Again</button>');
-
+				$("#getCode").html("<h2 style='color:red;'>Rooms Not Booked</h2>");
+				$("#getCodeModal").modal('show');
 			}
 
 		}
 	});
-
+	$("#getCodeModal").on("hidden.bs.modal", function () {
+		location.reload();
+	});
 
 	return false;
 }
