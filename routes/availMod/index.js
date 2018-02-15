@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongo = require('mongodb');
 var assert = require('assert');
-var murl = "mongodb://admin:admin@ds141796.mlab.com:41796/cms";
+var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
 
 /* GET home page. */
 
@@ -79,6 +79,7 @@ router.post('/insertavail', function (req, res) {
 	to = to[2]+"-"+to[0]+"-"+to[1]
 	fromd = new Date(from)
 	tod = new Date(to)
+	
 	var Rooms = req.body.Rooms;
 	var prom = req.body.PromoCode;
 	var extrabed = req.body.extrabed;
@@ -95,8 +96,8 @@ router.post('/insertavail', function (req, res) {
 
 	for (i = 1; i <= nights; i++) {
 		docarr.push({
-			"date": from[2] + '-' + from[0] + '-' + from[1],
-			"room": to[2] + '-' + to[0] + '-' + to[1],
+			"date": from,
+			"room": Rooms,
 			"Extrabed": extrabed,
 			"coupon": prom,
 			"Plans": plans
@@ -151,12 +152,15 @@ router.post('/geteditdata', function (req, res) {
 
 //update Availibility
 router.post('/updateavail', function (req, res) {
-	var edate = req.body.edate;
+	console.log();
+	var edate = req.body.edate.split("/");
+	edate = edate[2]+"-"+edate[0]+"-"+edate[1];
+	console.log(edate);
 	var Rooms = req.body.Rooms;
 	var prom = req.body.PromoCode;
 	var extrabed = req.body.extrabed;
 	var plans = req.body.Plans;
-
+	console.log(Rooms+ " "+prom+" "+plans);
 	jso = {
 		"date": edate,
 		"room": Rooms,

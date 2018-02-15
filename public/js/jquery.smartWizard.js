@@ -68,6 +68,7 @@ function SmartWizard(target, options) {
         });
         $($this.buttons.finish).click(function() {
             /* ccalled unstructure method from book.js */
+            
             dobooking();
             if(!$(this).hasClass('buttonDisabled')){
                 if($.isFunction($this.options.onFinish)) {
@@ -309,6 +310,7 @@ function SmartWizard(target, options) {
         var nextStepIdx = this.curStepIdx + 1;
         switch(nextStepIdx){
             case 1: console.log("step 1 called");
+                    $('#catagoryhold').html('<img src="images/giphy.gif" width="150" height="160">');
                     showavail();
                 break;
             case 2: console.log("step 2 called");
@@ -463,7 +465,7 @@ $.fn.smartWizard.defaults = {
     errorSteps:[],    // Array Steps with errors
     labelNext:'Next',
     labelPrevious:'Previous',
-    labelFinish:'Finish',
+    labelFinish:'Book',
     noForwardJumping: false,
     onLeaveStep: null, // triggers when leaving a step
     onShowStep: null,  // triggers when showing a step

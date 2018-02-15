@@ -1,3 +1,4 @@
+var out = null;
 var loadder = '\
 			<button class="btn btn-sm btn-warning">\
 				<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...\
@@ -32,14 +33,14 @@ function maininsert() {
 }
 
 function mainedit() {
-	$('#maincontent').html('\
+		$('#maincontent').html('\
 	<div class="edit-instruction container">\
 		<div class="col-md-8 col-sm-8 col-xs-12">\
 	  		<div class="input-group ">\
 				<span class="input-group-addon">\
 					<span class="glyphicon glyphicon-calendar"></span>\
 				</span>\
-				<input type="text" name="editAvildate" id="editAvildate" class="form-control" />\
+				<input type="text" name="edate" id="editAvaildate" class="form-control" />\
 	  		</div>\
 		</div>\
 		<div class="avilForm col-md-4 col-sm-4 col-xs-12">\
@@ -48,9 +49,14 @@ function mainedit() {
   	</div>\
 	  <div id="formholder"></div>\
 	  <script>\
-	  $("#editAvildate").datepicker({todayHighlight:true})\
-		  </script>\
+			$("#editAvaildate").datepicker({\
+				todayBtn: true,\
+				startDate:out,\
+				todayHighlight: true\
+			});\
+		</script>\
 	');
+	setmin()
 }
 
 /*
@@ -58,8 +64,8 @@ insert availibility functions start with setmin() and  ends with insertavailabil
 */
 //set minimum date today
 
+
 function setmin() {
-	var out = null;
 	$.ajax({
 		type: "post",
 		url: "/getdate",
@@ -73,34 +79,11 @@ function setmin() {
 			out = data;
 		}
 	});
-
 	$('#newAvildate').daterangepicker({
 		minDate: new Date(out),
 		todayHighlight: true,
 	});
-
-
-	// var today = new Date(out);
-	// var dd = today.getDate();
-	// var mm = today.getMonth() + 1;
-	// var yyyy = today.getFullYear();
-	// if (dd < 10) {
-	// 	dd = '0' + dd
-	// }
-	// if (mm < 10) {
-	// 	mm = '0' + mm
-	// }
-	// today = yyyy + '-' + mm + '-' + dd;
-	// document.getElementsByName('fromdate')[0].setAttribute("min", today);
-	// document.getElementsByName('todate')[0].setAttribute("min", today);
 }
-//set todate minimum=fromdate
-/* function settodate(){
-	var s=document.getElementsByName('fromdate')[0].value;
-	document.getElementsByName('todate')[0].setAttribute("min", s);
-	document.getElementsByName('todate')[0].value=s;
-	checkday();
-} */
 
 //check weekend to give warning
 function checkday() {
@@ -136,12 +119,12 @@ function loadform() {
 	// 	<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...\
 	// </button>');
 	var stayDate = $('#newAvildate').val();
-	
+
 	stayDate = stayDate.split(" - ");
 	availibility = "";
 	$.ajax({
 		type: "post",
-		url: "/checkfilled",
+		url: "/avibility/checkfilled",
 		dataType: 'json',
 		async: false,
 		data: JSON.stringify({
@@ -149,11 +132,11 @@ function loadform() {
 			"to": stayDate[0]
 		}),
 		contentType: 'application/json',
-		complete: function(){
+		complete: function () {
 			// $("#avilLoadder").html();
 		},
 		success: function (data) {
-			
+
 			// if selected dates has already available data then print "Already Available"
 			if (data.d.localeCompare("available") == 0) {
 				document.getElementById('formholder').innerHTML = "Already available";
@@ -165,7 +148,7 @@ function loadform() {
 				$.ajax({
 
 					type: "post",
-					url: "/getcat",
+					url: "/avibility/getcat",
 					async: false,
 					dataType: 'json',
 					data: JSON.stringify({
@@ -270,7 +253,7 @@ function insertavailability() {
 
 	$.ajax({
 		type: "post",
-		url: "/insertavail",
+		url: "/avibility/insertavail",
 		dataType: 'json',
 		data: JSON.stringify({
 			"fromdate": frdate,
@@ -300,11 +283,10 @@ var cat_plans;
 var retrived_json;
 
 function loadeditform() {
-
-	var edate = $('#editAvildate').val();
+	var edate = $('#editAvaildate').val();
 	$.ajax({
 		type: "post",
-		url: "/checkfilled",
+		url: "/avibility/checkfilled",
 		dataType: 'json',
 		async: false,
 		data: JSON.stringify({
@@ -318,7 +300,7 @@ function loadeditform() {
 				// if selected date has already available data then print "Already Available"
 				$.ajax({
 					type: "post",
-					url: "/getcat",
+					url: "/avibility/getcat",
 					dataType: 'json',
 					async: false,
 					data: JSON.stringify({
@@ -331,7 +313,7 @@ function loadeditform() {
 				});
 				$.ajax({
 					type: "post",
-					url: "/geteditdata",
+					url: "/avibility/geteditdata",
 					dataType: 'json',
 					async: false,
 					data: JSON.stringify({
@@ -342,7 +324,7 @@ function loadeditform() {
 						retrived_json = data;
 					}
 				});
-				displayeditform();
+				displayeditform(); // put in success function
 
 			} else {
 				$('#formholder').html("Please Insert Availibility for givendate");
@@ -459,11 +441,11 @@ function displayeditform() {
 		$('#roomsplan').append('<br>');
 
 	}
-	$('#formholder').append('<br> Please write numeric data services which you want to offer in selected dates write "0" if you want to offer at no cost otherwise leave it blank that shows "service not offered" <br><input type="button" value="Update" onclick="updateavailability()"');
+	$('#formholder').append('<br> Please write numeric data services which you want to offer in selected dates write "0" if you want to offer at no cost otherwise leave it blank that shows "service not offered" <br><input type="button" value="Update" onclick="updateavailability()">');
 }
 
 function updateavailability() {
-	var edate = document.getElementsByName('edate')[0].value
+	var edate = $('#editAvaildate').val();
 	var roomsarr = [],
 		plansarr = []
 	var catcount = cat_plans.catagories.length;
@@ -491,7 +473,7 @@ function updateavailability() {
 	$.ajax({
 
 		type: "post",
-		url: "/updateavail",
+		url: "/avibility/updateavail",
 		dataType: 'json',
 		data: JSON.stringify({
 

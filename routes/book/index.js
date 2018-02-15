@@ -1,3 +1,6 @@
+var assert = require('assert');
+var mongo = require('mongodb');
+var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
 var express = require('express');
 var router = express.Router();
 

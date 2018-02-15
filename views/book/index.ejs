@@ -290,7 +290,7 @@
           <script src="/validator/validator.js"></script>
 
           <!-- Custom booking Scripts -->
-          <script src="/booking/book.js"></script>
+          <script src="/book/book.js"></script>
           <!-- jQuery Smart Wizard -->
           <script src="/js/jquery.smartWizard.js"></script>
           <!-- Custom Theme Scripts -->
@@ -377,7 +377,7 @@
               // request getavail on nodejs
               $.ajax({
                 type: "post",
-                url: "/getavail",
+                url: "/booking/getavail",
                 dataType: 'json',
                 data: JSON.stringify({
                   "checkindate": tmpDates[0],
@@ -400,7 +400,7 @@
                   jsarr = data.jsa;
                   console.log("data" + jsarr);
                   // $('#catagoryhold').html('');
-                  $('#catagoryhold').append('<table border="1" cellpadding="5" id="mytab">');
+                  $('#catagoryhold').html('<table border="1" cellpadding="5" id="mytab">');
                   $('#mytab').append(
                     '<tr><th>Category Name</th><th>Room Price</th><th>Total Price</th><th>Select</th></tr>')
                   for (var i = 0; i < data.jsa.length; i++) {

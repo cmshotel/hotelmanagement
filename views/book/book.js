@@ -35,6 +35,7 @@ function openbooking(v) {
 
 
 function showquatation() {
+
 	if ($('#quotetab').length == 0) {
 
 		totromcost = 0;
@@ -43,12 +44,15 @@ function showquatation() {
 		$('#quotehold').html('<table cellpadding="5" id="quotetab"></table>')
 
 		var temp = document.getElementsByName('catagory')[0].value;
+		console.log('temp before'+temp)
 		for (i = 0; i < jsarr.length; i++) {
-			if (jsarr[i].catagory == temp) {
+			
+			if (temp.localeCompare(jsarr[i].catagory)==0) {
 				temp = i;
 				break;
 			}
 		}
+		console.log('temp after'+temp)
 		totromcost = jsarr[temp].price
 		//show total price
 		$('#quotetab').append('<tr><td>Total Room(s) Charges (₹) :</td><td><input type="number" min="0" name="roomcost" value="' + totromcost + '"</td></tr>');
@@ -156,12 +160,14 @@ function showquatation() {
 		calculategst()
 	} else {
 		var temp = document.getElementsByName('catagory')[0].value;
+			console.log(jsarr)
 		for (i = 0; i < jsarr.length; i++) {
-			if (jsarr[i].catagory == temp) {
+			if (temp.localeCompare(jsarr[i].catagory)==0) {
 				temp = i;
 				break;
 			}
 		}
+		console.log(temp)
 		totromcost = jsarr[temp].price
 		$('input[name=roomcost]').val(totromcost);
 
@@ -234,9 +240,9 @@ function calculategst() {
 	$.ajax({
 
 		type: "post",
-		url: "/getgstrate",
+		url: "/booking/getgstrate",
 		dataType: 'json',
-
+		
 		data: JSON.stringify({
 			"roompr": roompr
 		}),
@@ -335,7 +341,7 @@ function dobooking() {
 	$.ajax({
 
 		type: "post",
-		url: "/dobooking",
+		url: "/booking/dobooking",
 		dataType: 'json',
 		async: false,
 		data: JSON.stringify({

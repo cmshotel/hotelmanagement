@@ -4,11 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var fs = require('fs');
 var index = require('./routes');
 var avail = require('./routes/availMod/');
 var book = require('./routes/book/');
 var history = require('./routes/history/');
+var theme = require('./routes/theme');
 var app = express();
 
 // view engine setup
@@ -26,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public/vendor')));
 app.use(express.static(path.join(__dirname, 'views')));
 
 app.use('/', index);
-app.use('/getcheckins', index);
+// app.use('/getcheckins', index);
 
 
 
@@ -36,7 +37,8 @@ app.use('/getcheckins', index);
 app.use('/avibility',avail);
 app.use('/booking',book);
 app.use('/history',history);
-app.use('/getBookedData',history);
+app.use('/theme', theme);
+// app.use('/getBookedData',history);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

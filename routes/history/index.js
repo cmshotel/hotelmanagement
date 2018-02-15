@@ -1,5 +1,5 @@
 var mongo = require('mongodb');
-var murl = "mongodb://admin:admin@ds141796.mlab.com:41796/cms";
+var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
 
 var bodyParser = require("body-parser");
 var assert = require('assert');
