@@ -1,15 +1,16 @@
-var mongo = require('mongodb');
-var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
-var bodyParser = require("body-parser");
-var assert = require('assert');
+// var mongo = require('mongodb');
+// var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
 var express = require('express');
 var router = express.Router();
+var bodyParser = require("body-parser");
+var assert = require('assert');
+var mongoUtil = require('../../bin/mongoUtil');
 
 router.get('/', function (req, res, next) {
 	console.log(new Date+" POST /sendContent");
 	if (req.xhr) {
 		var saved_content;
-		mongo.connect(murl, function (err, db) {
+		mongoUtil.cnnectToServer(function (err, db) {
 			db.collection('contents').find().toArray(function (err, result) {
 				if (err) 
 					return console.log("Error saving html content into database: " + err);
@@ -39,7 +40,7 @@ router.get('/', function (req, res, next) {
 router.post('/sendContent', function (req, res, next) {
 	console.log(new Date+" POST /sendContent");
 	var content = req.body.content;
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		db.collection('contents').updateOne({
 			"action": "send-content"
 		}, req.body, {

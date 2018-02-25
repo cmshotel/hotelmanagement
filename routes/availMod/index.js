@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var mongo = require('mongodb');
+// var mongo = require('mongodb');
 var assert = require('assert');
-var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
+var mongoUtil = require('../../bin/mongoutil');
+// var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
 
 /* GET home page. */
 
@@ -16,7 +17,7 @@ router.post('/checkfilled', function (req, res) {
 	from = from.split("/");
 	var to = req.body.to;
 	to = to.split("/");
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		var collection = db.collection('avail');
 
@@ -43,7 +44,7 @@ router.post('/checkfilled', function (req, res) {
 });
 
 router.post('/getcat', function (req, res) {
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 
 		var cursor = db.collection('common').find({}).project({
@@ -117,7 +118,7 @@ router.post('/insertavail', function (req, res) {
 		}
 		from = yyyy + '-' + mm + '-' + dd;
 	}
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		var collection = db.collection('avail');
 		collection.insertMany(docarr, function (err, result) {
@@ -136,7 +137,7 @@ router.post('/insertavail', function (req, res) {
 router.post('/geteditdata', function (req, res) {
 	/* change date formate */
 	var edate = (req.body.edate).split("/");
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		var collection = db.collection('avail');
 		collection.find({
@@ -168,7 +169,7 @@ router.post('/updateavail', function (req, res) {
 		"coupon": prom,
 		"Plans": plans
 	}
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		var collection = db.collection('avail');
 		collection.update({

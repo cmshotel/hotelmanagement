@@ -156,7 +156,7 @@ function loadform() {
 						$('#formholder').html('<img src="images/loading.gif">');
 					},
 					success: function (data) {
-						// cat_plans = data;
+						cat_plans = data;
 						displayform(data);
 					}
 				});

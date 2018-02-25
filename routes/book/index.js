@@ -1,8 +1,10 @@
-var assert = require('assert');
-var mongo = require('mongodb');
-var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
 var express = require('express');
 var router = express.Router();
+// var mongo = require('mongodb');
+var assert = require('assert');
+var mongoUtil = require('../../bin/mongoutil');
+// var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -21,7 +23,7 @@ router.post('/getavail', function (req, res) {
 	days = req.body.nights; /* Math.round(Math.abs((cho.getTime() - chi.getTime())/(oneDay))); */
 	var resarr = [];
 	
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		var cursor = db.collection('avail').find({
 			"date": {
@@ -113,7 +115,7 @@ router.post('/getgstrate', function (req, res) {
 	foodrate = 0;
 	empty = {};
 
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		var cursor = db.collection('common').find({}).project({
 			gst: 1,
@@ -179,7 +181,7 @@ router.post('/dobooking', function (req, res) {
 	days = chout.getDate() - chin.getDate();
 	var resarr = [];
 
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		db.collection('booking').find({
 			"contact": contact,
@@ -193,7 +195,7 @@ router.post('/dobooking', function (req, res) {
 					"response": "available"
 				})
 			} else {
-				mongo.connect(murl, function (err, db) {
+				mongoUtil.connectToServer(function (err, db) {
 					assert.equal(null, err);
 					var cursor = db.collection('avail').find({
 						"date": {
@@ -228,7 +230,7 @@ router.post('/dobooking', function (req, res) {
 									flag = true;
 									//insertion of booking
 									//db.collection('booking').insertOne(req.body);
-									mongo.connect(murl, function (err, db) {
+									mongoUtil.connectToServer(function (err, db) {
 										assert.equal(null, err);
 										db.collection("booking").insertOne(req.body, function (err, dbresp) {
 											if (err) {
@@ -237,7 +239,7 @@ router.post('/dobooking', function (req, res) {
 											};
 											db.close();
 										});
-										mongo.connect(murl, function (err, db) {
+										mongoUtil.connectToServer(function (err, db) {
 											assert.equal(null, err);
 											db.collection("avail").update({
 												"date": {

@@ -9,8 +9,8 @@ module.exports = {
 
   connectToServer: function( callback ) {
     mongo.connect( murl, function( err, db ) {
-      _db = db;
-      return callback(err, _db);
+      // _db = db;
+      return callback(err, db);
     } );
   },
 

@@ -1,11 +1,11 @@
 var mongo = require('mongodb');
-var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
+// var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
 //var path = require('path');
 var fs = require('fs');
 var assert = require('assert');
 var form = require('../bin/configform');
 var express = require('express');
-var mongoUtil = require('../bin/mongoutil');
+// var mongoUtil = require('../bin/mongoutil');
 var router = express.Router();
 
 /* GET home page. */
@@ -19,9 +19,9 @@ router.get('/', function (req, res, next) {
             if (items[i].toString().localeCompare('config.js') == 0) {
                 flg = 1
                 var mongoUtil = require('../bin/mongoUtil');
-                mongoUtil.connectToServer(function (err) {
+                mongoUtil.connectToServer(function (err, db) {
 
-                    var db = mongoUtil.getDb();
+                    // var db = mongoUtil.getDb();
                     db.listCollections().toArray(function (err, collInfos) {
                         // collInfos is an array of collection info objects that look like:
                         // { name: 'test', options: {} }
@@ -78,7 +78,7 @@ router.post('/Createadmin', function (req, res, next) {
         //console.log('Config File Created!');
         //connect by mongoUtil
         var mongoUtil = require('../bin/mongoUtil');
-        mongoUtil.connectToServer(function (err) {
+        mongoUtil.connectToServer(function (err, db) {
             if (err) {
 
                 //res.send('Database not Connected');
@@ -198,10 +198,10 @@ router.post('/initializedb', function (req, res, next) {
     }];
     console.log(docs);
     var mongoUtil = require('../bin/mongoUtil');
-    mongoUtil.connectToServer(function (err) {
+    mongoUtil.connectToServer(function (err, db) {
         console.log(new Date() + " Connect to db......");
         if (err) {} else {
-            var db = mongoUtil.getDb();
+            // var db = mongoUtil.getDb();
             db.collection('common').insertMany(docs, function (error, inserted) {
                 if (error) {
                     console.error(error);
@@ -228,11 +228,12 @@ router.post('/initializedb', function (req, res, next) {
 });
 
 router.post('/getcheckins', function (req, res, next) {
+    var mongoUtil = require('../bin/mongoutil');
     console.log(new Date() + " POST /getcheckins")
     chkind = req.body.chkindate;
     console.log(chkind)
     var data = null;
-    mongo.connect(murl, function (err, db) {
+    mongoUtil.connectToServer(function (err, db) {
         console.log(err)
         assert.equal(null, err);
         db.collection('booking').find({
