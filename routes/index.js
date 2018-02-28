@@ -4,12 +4,12 @@ var assert = require('assert');
 var form = require('../bin/configform');
 var express = require('express');
 var cookieParser = require('cookie-parser');
-var session = require('express-session');   
+var session = require('express-session');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    path = './bin'
+    path = './bin';
     flg = 0;
     fs.readdir(path, function (err, items) {
 
@@ -37,7 +37,7 @@ router.get('/', function (req, res, next) {
                              * if set then goto dashboard otherwise goto login
                              */
                             if (req.session.uid)
-                                res.render('dashboard');
+                                res.redirect('dashboard');
                             else
                                 res.redirect('login')
                         } else {
@@ -220,8 +220,8 @@ router.post('/initializedb', function (req, res, next) {
                         db.close();
                     });
                     //use promise
-                    //put login page not ashboard
-                    res.render('dashboard/index');
+                    //put login page not dashboard
+                    res.redirect('login');
                 }
             });
         }
@@ -276,7 +276,7 @@ router.post('/logincred', function (req, res, next) {
     var mongoUtil = require('../bin/mongoutil');
     ux = req.body.ux;
     uy = req.body.uy;
-    console.log(ux+" "+uy)
+    console.log(ux + " " + uy)
     mongoUtil.connectToServer(function (err, db) {
         if (err)
             throw err;
@@ -286,8 +286,8 @@ router.post('/logincred', function (req, res, next) {
             }, {
                 'passwd': uy
             }]
-        }).then(function(udata) {
-            if(udata) {
+        }).then(function (udata) {
+            if (udata) {
                 req.session.uid = udata._id;
                 req.session.name = udata.name;
                 req.session.email = udata.email;
@@ -305,9 +305,10 @@ router.get('/login', function (req, res, next) {
 });
 
 router.get('/dashboard', function (req, res, next) {
-    console.log(req.session.uid +" && "+ req.session.email)
-    if(req.session.uid && req.session.email)
-        res.render('dashboard', {session: req.session});
+    if (req.session.uid && req.session.email)
+        res.render('dashboard', {
+            session: req.session
+        });
     else
         res.redirect('/login');
 });

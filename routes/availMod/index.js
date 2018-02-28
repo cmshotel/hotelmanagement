@@ -9,7 +9,13 @@ var mongoUtil = require('../../bin/mongoutil');
 
 
 router.get('/', function (req, res) {
-	res.render('avail/index');
+	if (req.session.uid && req.session.email)
+		res.render('avail', {
+			session: req.session
+		});
+	else
+		res.redirect('/login');
+	// res.render('avail/index');
 });
 
 router.post('/checkfilled', function (req, res) {
@@ -75,12 +81,12 @@ router.post('/getcat', function (req, res) {
 router.post('/insertavail', function (req, res) {
 	/* chage date formate */
 	var from = req.body.fromdate.split("/");
-	from = from[2]+"-"+from[0]+"-"+from[1]
+	from = from[2] + "-" + from[0] + "-" + from[1]
 	var to = req.body.todate.split("/");
-	to = to[2]+"-"+to[0]+"-"+to[1]
+	to = to[2] + "-" + to[0] + "-" + to[1]
 	fromd = new Date(from)
 	tod = new Date(to)
-	
+
 	var Rooms = req.body.Rooms;
 	var prom = req.body.PromoCode;
 	var extrabed = req.body.extrabed;
@@ -141,7 +147,7 @@ router.post('/geteditdata', function (req, res) {
 		assert.equal(null, err);
 		var collection = db.collection('avail');
 		collection.find({
-			"date": edate[2]+"-"+edate[0]+"-"+edate[1]
+			"date": edate[2] + "-" + edate[0] + "-" + edate[1]
 		}).toArray(function (err, docs) {
 			assert.equal(err, null);
 			var jso = docs[0];
@@ -155,13 +161,13 @@ router.post('/geteditdata', function (req, res) {
 router.post('/updateavail', function (req, res) {
 	console.log();
 	var edate = req.body.edate.split("/");
-	edate = edate[2]+"-"+edate[0]+"-"+edate[1];
+	edate = edate[2] + "-" + edate[0] + "-" + edate[1];
 	console.log(edate);
 	var Rooms = req.body.Rooms;
 	var prom = req.body.PromoCode;
 	var extrabed = req.body.extrabed;
 	var plans = req.body.Plans;
-	console.log(Rooms+ " "+prom+" "+plans);
+	console.log(Rooms + " " + prom + " " + plans);
 	jso = {
 		"date": edate,
 		"room": Rooms,

@@ -7,28 +7,34 @@ var mongoUtil = require('../../bin/mongoutil');
 
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.render('book/index');
+router.get('/', function (req, res, next) {
+	if (req.session.uid && req.session.email)
+		res.render('book', {
+			session: req.session
+		});
+	else
+		res.redirect('/login');
+	//   res.render('book/index');
 });
 
 router.post('/getavail', function (req, res) {
 	/* change date formate */
 	var chkin = (req.body.checkindate).split("/");
 	var chkout = (req.body.checkoutdate).split("/");
-	console.log(chkin[2]+"-"+chkin[0]+"-"+chkin[1]);
+	console.log(chkin[2] + "-" + chkin[0] + "-" + chkin[1]);
 	var room = req.body.norooms;
 	// chin = new Date(chkin);
 	// chout = new Date(chkout);
 	// var oneDay = 24 * 60 * 60 * 1000;
 	days = req.body.nights; /* Math.round(Math.abs((cho.getTime() - chi.getTime())/(oneDay))); */
 	var resarr = [];
-	
+
 	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		var cursor = db.collection('avail').find({
 			"date": {
-				$gte: chkin[2]+"-"+chkin[0]+"-"+chkin[1],
-				$lt: chkout[2]+"-"+chkout[0]+"-"+chkout[1]
+				$gte: chkin[2] + "-" + chkin[0] + "-" + chkin[1],
+				$lt: chkout[2] + "-" + chkout[0] + "-" + chkout[1]
 			}
 		});
 		catarr = [];
@@ -166,21 +172,17 @@ router.post('/dobooking', function (req, res) {
 	// }
 
 	bookingprocess = 1;
-	contact = req.body.contact
-	chkin = req.body.chkin
-	chkout = req.body.chkout
-	room = req.body.rooms
-	catagory = req.body.catagory
-	resp = "Failure"
-	decr = (-1) * room
+	contact = req.body.contact;
+	chkin = req.body.chkin;
+	chkout = req.body.chkout;
+	room = req.body.rooms;
+	catagory = req.body.catagory;
+	resp = "Failure";
+	decr = (-1) * room;
 	flag = false;
+	days = req.body.nights;
 
-	//check availability again
-	chin = new Date(chkin);
-	chout = new Date(chkout);
-	days = chout.getDate() - chin.getDate();
 	var resarr = [];
-
 	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		db.collection('booking').find({
@@ -189,7 +191,7 @@ router.post('/dobooking', function (req, res) {
 			"chkout": chkout,
 			"catagory": catagory
 		}).toArray(function (err, docs) {
-			db.close()
+			db.close();
 			if (docs.length != 0) {
 				res.send({
 					"response": "available"

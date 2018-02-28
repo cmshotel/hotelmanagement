@@ -7,12 +7,12 @@ var assert = require('assert');
 var mongoUtil = require('../../bin/mongoUtil');
 
 router.get('/', function (req, res, next) {
-	console.log(new Date+" POST /sendContent");
+	console.log(new Date + " POST /sendContent");
 	if (req.xhr) {
 		var saved_content;
 		mongoUtil.cnnectToServer(function (err, db) {
 			db.collection('contents').find().toArray(function (err, result) {
-				if (err) 
+				if (err)
 					return console.log("Error saving html content into database: " + err);
 				if (result != '') {
 					saved_content = result['0'].content;
@@ -33,12 +33,18 @@ router.get('/', function (req, res, next) {
 			});
 		});
 	} else {
+		if (req.session.uid && req.session.email)
+			res.render('theme/blank', {
+				session: req.session
+			});
+		else
+			res.redirect('/login');
 		res.render('theme/blank');
 	}
 });
 
 router.post('/sendContent', function (req, res, next) {
-	console.log(new Date+" POST /sendContent");
+	console.log(new Date + " POST /sendContent");
 	var content = req.body.content;
 	mongoUtil.connectToServer(function (err, db) {
 		db.collection('contents').updateOne({

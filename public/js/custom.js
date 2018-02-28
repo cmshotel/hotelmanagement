@@ -2769,7 +2769,7 @@ function init_calendar() {
 				}),
 				contentType: 'application/json',
 				beforeSend: function () {
-					$('#calendervalues').html('<center><img src="images/loader.gif" width="" height""></ceter>');
+					$('#calendervalues').html('<center><img src="/images/loader.gif" width="" height""></ceter>');
 				},
 				success: function (data) {
 					if(data.length === 0)

@@ -31,9 +31,12 @@ app.use(session({
   secret: 'Bravo36@',
   resave: false,
   saveUninitialized: true,
-  cookie: {
+  /* 
+  * https://github.com/expressjs/session#cookiesecure
+  */
+  /* cookie: {
     secure: true
-  }
+  } */
 }));
 
 

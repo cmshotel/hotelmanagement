@@ -6,18 +6,23 @@ var bodyParser = require("body-parser");
 var assert = require('assert');
 var mongoUtil = require('../../bin/mongoUtil');
 
-router.use(function(req, res, next) {
+router.use(function (req, res, next) {
 	console.log('Url is: ' + req.url);
 	next(); // make sure we go to the next routes and don't stop here
-  });
+});
 
 router.get('/', function (req, res) {
-	res.render('history/index');
-	console.log(new Date()+"/history");
+	if (req.session.uid && req.session.email)
+		res.render('history', {
+			session: req.session
+		});
+	else
+		res.redirect('/login');
+	// res.render('history/index');
 });
 
 router.post('/getBookedData', function (req, res) {
-	console.log(new Date()+ " POST  /getBookedData");
+	console.log(new Date() + " POST  /getBookedData");
 	mongoUtil.connectToServer(function (err, db) {
 		console.log(err);
 		collection = db.collection("booking");
