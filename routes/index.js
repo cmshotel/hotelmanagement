@@ -1,11 +1,10 @@
 var mongo = require('mongodb');
-// var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
-//var path = require('path');
 var fs = require('fs');
 var assert = require('assert');
 var form = require('../bin/configform');
 var express = require('express');
-// var mongoUtil = require('../bin/mongoutil');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');   
 var router = express.Router();
 
 /* GET home page. */
@@ -32,29 +31,32 @@ router.get('/', function (req, res, next) {
                             }
                         }
                         if (collaction_count == 5) {
-                            console.log('OK');
-                            res.render('dashboard/index');
+                            console.log(req.session.uid);
+                            /**
+                             * Check session is set?
+                             * if set then goto dashboard otherwise goto login
+                             */
+                            if (req.session.uid)
+                                res.render('dashboard');
+                            else
+                                res.redirect('login')
                         } else {
-                            //if database not matches
+                            /**
+                             * if database not matches
+                             */
                             res.send(form.mainform());
                         }
-
                     });
                 });
-
-
             } else {
-                //if config.js not found at last index
+                /**
+                 * if config.js not found at last index
+                 */
                 if (i == (items.length - 1) && flg == 0) {
-
                     res.send(form.mainform());
-
                 }
-
             }
-
         }
-
     });
 });
 
@@ -270,33 +272,43 @@ router.post('/getdate', function (req, res, next) {
     res.send(new Date());
 });
 
-router.get('/login', function (req, res, next) {
-    res.render('login/index');
-});
-
-router.post('/login', function (req, res, next) {
-ux = req.body.ux;
-uy = req.body.uy;
-mongoUtil.connectToServer(function (err, db) {
-    if (err)
-        throw err;
-    db.collection('users').find({
-        $and: [{
-            'email': ux
-        }, {
-            'passwd': uy
-        }]
-    }, {
-        "name": 1,
-        "role": 1,
-        "email": 1,
-    }).toArray(function (err, docs) {
+router.post('/logincred', function (req, res, next) {
+    var mongoUtil = require('../bin/mongoutil');
+    ux = req.body.ux;
+    uy = req.body.uy;
+    console.log(ux+" "+uy)
+    mongoUtil.connectToServer(function (err, db) {
         if (err)
             throw err;
-        console.log(docs)
-        res.send(docs);
-    })
+        db.collection('users').findOne({
+            $and: [{
+                'email': ux
+            }, {
+                'passwd': uy
+            }]
+        }).then(function(udata) {
+            if(udata) {
+                req.session.uid = udata._id;
+                req.session.name = udata.name;
+                req.session.email = udata.email;
+                req.session.role = udata.role;
+                res.redirect('/dashboard');
+            } else {
+                res.redirect('/login');
+            }
+        })
+    });
 });
 
+router.get('/login', function (req, res, next) {
+    res.render('login');
+});
+
+router.get('/dashboard', function (req, res, next) {
+    console.log(req.session.uid +" && "+ req.session.email)
+    if(req.session.uid && req.session.email)
+        res.render('dashboard', {session: req.session});
+    else
+        res.redirect('/login');
 });
 module.exports = router;

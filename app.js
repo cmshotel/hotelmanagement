@@ -3,6 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var index = require('./routes');
@@ -20,34 +21,42 @@ app.set('view engine', 'ejs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
+app.use(cookieParser());
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'Bravo36@',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: true
+  }
+}));
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public/vendor')));
 app.use(express.static(path.join(__dirname, 'views')));
-
-app.use('/', index);
-// app.use('/getcheckins', index);
-
-
-
-//Availibility Requests
 /*
-*/
-app.use('/avibility',avail);
-app.use('/booking',book);
-app.use('/history',history);
+ */
+app.use('/', index);
+app.use('/avibility', avail);
+app.use('/booking', book);
+app.use('/history', history);
 app.use('/theme', theme);
-// app.use('/getBookedData',history);
+
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
