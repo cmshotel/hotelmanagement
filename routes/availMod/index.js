@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 // var mongo = require('mongodb');
 var assert = require('assert');
-var mongoUtil = require('../../bin/mongoutil');
+var mongoUtil = require('../../bin/mongoUtil');
 // var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
 
 /* GET home page. */

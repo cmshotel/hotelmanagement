@@ -1,57 +1,60 @@
 // var mongo = require('mongodb');
 // var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 var bodyParser = require("body-parser");
-var assert = require('assert');
-var mongoUtil = require('../../bin/mongoUtil');
+var assert = require("assert");
+var mongoUtil = require("../../bin/mongoUtil");
 
-router.get('/', function (req, res, next) {
-	console.log(new Date + " POST /sendContent");
-	if (req.xhr) {
-		var saved_content;
-		mongoUtil.cnnectToServer(function (err, db) {
-			db.collection('contents').find().toArray(function (err, result) {
-				if (err)
-					return console.log("Error saving html content into database: " + err);
-				if (result != '') {
-					saved_content = result['0'].content;
-					res.setHeader('Access-Control-Allow-Methods', 'GET');
-					res.json({
-						// user: uid,
-						content: saved_content
-					});
-					console.log(result['0'].content);
-				} else {
-					//saved_content = ;
-					res.setHeader('Access-Control-Allow-Methods', 'GET');
-					res.json({
-						user: uid
-					});
-					console.log("no data");
-				}
-			});
-		});
-	} else {
-		if (req.session.uid && req.session.email)
-			res.render('theme/blank', {
-				session: req.session
-			});
-		else
-			res.redirect('/login');
-		res.render('theme/blank');
-	}
+router.get("/", function(req, res, next) {
+  if (req.session.uid && req.session.email)
+    res.render("theme/blank", {
+      session: req.session
+    });
+  else res.redirect("/login");
 });
 
-router.post('/sendContent', function (req, res, next) {
-	console.log(new Date + " POST /sendContent");
-	var content = req.body.content;
-	mongoUtil.connectToServer(function (err, db) {
-		db.collection('contents').updateOne({
-			"action": "send-content"
-		}, req.body, {
-			upsert: true,
-		});
-	});
+router.post("/loadContent", function(req, res, next) {
+  var saved_content;
+  mongoUtil.connectToServer(function(err, db) {
+    if (err) throw err;
+    db.collection("contents")
+      .find()
+      .toArray(function(err, result) {
+        if (err)
+          console.log("Error fetching html content from database: " + err);
+        if (result != "") {
+          saved_content = result["0"].content;
+          res.setHeader("Access-Control-Allow-Methods", "GET");
+          res.json({
+            content: saved_content,
+            session: req.session
+          });
+        } else {
+          res.setHeader("Access-Control-Allow-Methods", "GET");
+          res.json({
+            session: req.session
+          });
+        }
+      });
+  });
+});
+router.post("/sendContent", function(req, res, next) {
+  var content = req.body.content;
+  mongoUtil.connectToServer(function(err, db) {
+    if (err) throw err;
+    db.collection("contents").updateOne(
+      {
+        action: "send-content"
+      },
+      req.body,
+      {
+        upsert: true
+      }
+    );
+  });
+  res.json({
+    data: "success"
+  });
 });
 module.exports = router;
