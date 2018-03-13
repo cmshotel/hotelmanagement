@@ -1,4 +1,4 @@
-maininitform='<head><link href="vendor/bootstrap.min.css" rel="stylesheet">'
+maininitform='<head><link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">'
             +'<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">'
             +'<center><h2><font color="blue">Content Management System for Hotel</font></h2></center><br><br></head><body>'    
              +'<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="/Createadmin">'
@@ -29,8 +29,8 @@ maininitform='<head><link href="vendor/bootstrap.min.css" rel="stylesheet">'
                      +' </div>'
 
                     +'</form>'
-                    +' <script src="/vendor/jquery.min.js"></script>'
-                       +'<script src="/vendor/bootstrap.min.js"></script>'
+                    +' <script src="/vendor/jquery/dist/jquery.min.js"></script>'
+                       +'<script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>'
 +'</body>'
 
 module.exports = {
