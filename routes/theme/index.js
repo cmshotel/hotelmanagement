@@ -8,10 +8,11 @@ var mongoUtil = require("../../bin/mongoUtil");
 
 router.get("/", function(req, res, next) {
   if (req.session.uid && req.session.email)
-    res.render("theme/blank", {
+    res.render("theme/index", {
       session: req.session
     });
-  else res.redirect("/login");
+  else 
+    res.render("theme/index");
 });
 
 router.post("/loadContent", function(req, res, next) {
@@ -40,7 +41,8 @@ router.post("/loadContent", function(req, res, next) {
   });
 });
 router.post("/sendContent", function(req, res, next) {
-  var content = req.body.content;
+  var content = req.body;
+  console.log(content);
   mongoUtil.connectToServer(function(err, db) {
     if (err) throw err;
     db.collection("contents").updateOne(

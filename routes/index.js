@@ -34,7 +34,6 @@ router.get("/", function(req, res, next) {
               }
             }
             if (collaction_count == 5) {
-              console.log(req.session.uid);
               /**
                * Check session is set?
                * if set then goto dashboard otherwise goto login
@@ -42,7 +41,7 @@ router.get("/", function(req, res, next) {
               if (req.session.uid) 
                 res.redirect("dashboard");
               else 
-              res.redirect("login");
+                res.redirect("theme");
             } else {
               /**
                * if database not matches

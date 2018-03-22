@@ -1,0 +1,30 @@
+grapesjs.plugins.add('save-to-db', (editor, options) => {
+  /*
+   * Here you should rely on GrapesJS APIs, so check 'API Reference' for more info
+   * For example, you could do something like this to add some new command:
+   *
+   * editor.Commands.add(...);
+   */
+ 	editor.Panels.addButton('options', {
+ 		id: 'save-db',
+ 		className: 'fa fa-floppy-o',
+ 		command: 'saveToDb',
+ 		attributes: {
+ 			title: 'Save'
+ 		},
+ 	});
+
+ 	editor.Commands.add('saveToDb',{
+ 		run: function(editor, sender){
+ 			sender && sender.set('active', 0)
+ 			editor.store();
+
+ 			var htmldata = editor.getHtml();
+ 			var cssdata = editor.getCss();
+ 			$.post("sendContent",{
+ 				html: htmldata,
+            	css: cssdata
+            });
+ 		}
+ 	});
+});

@@ -14,3 +14,6 @@ $('#log').on('click', function (e) {
         }
     });
 });
+
+var name = $('#name').val()
+var data = '{"name": name,}';
