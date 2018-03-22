@@ -11,12 +11,10 @@ router.get("/", function(req, res, next) {
     res.render("theme/index", {
       session: req.session
     });
-  else 
-    res.render("theme/index");
+  else res.render("theme/index");
 });
 
-router.post("/loadContent", function(req, res, next) {
-  var saved_content;
+router.get("/loadContent", function(req, res, next) {
   mongoUtil.connectToServer(function(err, db) {
     if (err) throw err;
     db.collection("contents")
@@ -25,12 +23,9 @@ router.post("/loadContent", function(req, res, next) {
         if (err)
           console.log("Error fetching html content from database: " + err);
         if (result != "") {
-          saved_content = result["0"].content;
+          console.log(result[0].content);
           res.setHeader("Access-Control-Allow-Methods", "GET");
-          res.json({
-            content: saved_content,
-            session: req.session
-          });
+          res.json(result[0].content);
         } else {
           res.setHeader("Access-Control-Allow-Methods", "GET");
           res.json({
@@ -42,12 +37,15 @@ router.post("/loadContent", function(req, res, next) {
 });
 router.post("/sendContent", function(req, res, next) {
   var content = req.body;
-  console.log(content);
+  req.body = {
+      action: "jups",
+      content: req.body
+  };
   mongoUtil.connectToServer(function(err, db) {
     if (err) throw err;
     db.collection("contents").updateOne(
       {
-        action: "send-content"
+        action: "jups"
       },
       req.body,
       {

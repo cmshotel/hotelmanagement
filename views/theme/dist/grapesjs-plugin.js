@@ -24,7 +24,11 @@ grapesjs.plugins.add('save-to-db', (editor, options) => {
  			$.post("sendContent",{
  				html: htmldata,
             	css: cssdata
-            });
+            }).done(function(d){
+				console.log(d);
+			}).fail(function(d){
+				console.log(d);
+			});
  		}
  	});
 });
