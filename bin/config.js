@@ -1,0 +1,1 @@
+jso={dburl: 'mongodb://admin:admin@ds227858.mlab.com:27858/cms', hotel_name: 'Real Holydays'};module.exports = { maindetails: function() {return  jso;}  };
