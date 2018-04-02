@@ -26,14 +26,14 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(cookieParser());
-app.set('trust proxy', 1) // trust first proxy
+app.set('trust proxy', 1); // trust first proxy
 app.use(session({
   secret: 'Bravo36@',
   resave: false,
   saveUninitialized: true,
   /* 
-  * https://github.com/expressjs/session#cookiesecure
-  */
+   * https://github.com/expressjs/session#cookiesecure
+   */
   /* cookie: {
     secure: true
   } */
@@ -42,6 +42,7 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public/vendor')));
+app.use(express.static(path.join(__dirname, 'views/theme')));
 app.use(express.static(path.join(__dirname, 'views')));
 /*
  */
