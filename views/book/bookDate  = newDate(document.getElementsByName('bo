@@ -1,0 +1,1 @@
+bookDate  = newDate(document.getElementsByName('bookdate')[0].value);

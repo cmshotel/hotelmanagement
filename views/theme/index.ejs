@@ -1,44 +1,45 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <title>GrapesJS</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="dist/css/grapes.min.css">
-  <script src="dist/grapes.min.js"></script>
-  <script src="dist/grapesjs-plugin.js"></script>
-  <style>
-  body,
-  html {
-    height: 100%;
-    margin: 0;
-  }
+  <head>
+    <meta charset="utf-8">
+    <title>GrapesJS</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="dist/css/grapes.min.css">
+    <script src="dist/grapes.min.js"></script>
+    <script src="dist/grapesjs-plugin.js"></script>
+    <style>
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+      }
 
-</style>
-</head>
+    </style>
+  </head>
 
-<body>
-  <div id="jups"></div>
-  <script>
-
-    /* 
-     *Load WebContent
-     */
-    // $.post('loadContent').done((d) => {
-    //     head = document.head || document.getElementsByTagName('head')[0];
-    //     console.log(head);
-    //     $('#jups').html(d.content.html);
-    // }).fail((e) => {
-    //     console.log(e)
-    // });
-    /* 
-    * Intialize grapesjs Editor & config
-    */
-    var editor = grapesjs.init({
-        height: '100%',
-        container: '#jups',
-        storageManager: {
+  <body>
+    <div id="jups"></div>
+    <script>
+      /* 
+       *Load WebContent
+       */
+      // console.log('<%- typeof session %>');
+      if ('<%- typeof session %>' === 'undefined') {
+        $.get('theme/loadContent').done((d) => {
+          $('style').append(d.css);
+          $('#jups').html(d.html);
+        }).fail((e) => {
+          console.log(e)
+        });
+      } else {
+        /* 
+         * Intialize grapesjs Editor & config
+         */
+        var editor = grapesjs.init({
+          height: '100%',
+          container: '#jups',
+          storageManager: {
             id: 'jups-',
             type: 'remote',
             stepsBeforeSave: 2,
@@ -48,8 +49,8 @@
             storeCss: true,
             contentTypeJson: true,
             urlStore: "sendContent",
-            urlLoad: "loadContent", 
-            params: {},   // For custom values on requests
+            urlLoad: "loadContent",
+            params: {}, // For custom values on requests
 
             // id: 'jups-', // Prefix identifier that will be used inside storing and loading
             // type: 'local', // Type of the storage
@@ -60,63 +61,75 @@
             // storeHtml: true, // Enable/Disable storing of components as HTML string
             // storeCss: true, // Enable/Disable storing of rules/style as CSS string
           },
-        plugins: ['save-to-db'],
-      });
+          plugins: ['save-to-db'],
+        });
 
-    editor.BlockManager.add('testBlock', {
-      label: 'Block',
-      attributes: { class:'gjs-fonts gjs-f-b1' },
-      content: `<div style="padding-top:50px; padding-bottom:50px; text-align:center title-draggable='true'">Test block</div>`
-      })
+        editor.BlockManager.add('testBlock', {
+          label: 'Block',
+          attributes: {
+            class: 'gjs-fonts gjs-f-b1'
+          },
+          content: `<div style="padding-top:50px; padding-bottom:50px; text-align:center title-draggable='true'">Test block</div>`
+        })
 
-    editor.BlockManager.add('imageBlock', {
-      label: 'Imageslider',
-      attributes: { class:'gjs-block fa fa-slideshare'},
-      content: {
-        type: 'image',
-        src:'G:/trial.jpg',
-        activeOnRender: 1
-        
+        editor.BlockManager.add('imageBlock', {
+          label: 'Imageslider',
+          attributes: {
+            class: 'gjs-block fa fa-slideshare'
+          },
+          content: {
+            type: 'image',
+            src: 'G:/trial.jpg',
+            activeOnRender: 1
+
+          }
+        })
+
+        editor.BlockManager.add('map-block', {
+          label: 'Map',
+
+          attributes: {
+            class: 'fa fa-map-o gjs-block gjs-one-bg gjs-four-color-h'
+          },
+          content: {
+            type: 'map', // Built-in 'map' component
+            style: {
+              height: '350px'
+            },
+            // removable: false, // Once inserted it can't be removed
+            draggable: true,
+
+          }
+        })
+
+        editor.BlockManager.add('Video-block', {
+          label: 'Video',
+          attributes: {
+            class: 'fa fa-youtube-play gjs-block gjs-one-bg gjs-four-color-h'
+          },
+          content: {
+            type: 'video',
+            //src: 'img/video2.webm',
+            style: {
+              height: '350px',
+              width: '615px',
+              activeOnRender: 1
+            }
+          },
+        })
+
+        editor.BlockManager.add('link-block', {
+          label: 'Link',
+          attributes: {
+            class: 'fa fa-link gjs-block gjs-one-bg gjs-four-color-h'
+          },
+          content: {
+            type: 'link-block'
+          }
+        })
       }
-      })
 
-    editor.BlockManager.add('map-block', {
-     label: 'Map',
-     
-     attributes:{ class:'fa fa-map-o gjs-block gjs-one-bg gjs-four-color-h'},
-     content: {
-       type: 'map', // Built-in 'map' component
-       style: {
-         height: '350px'
-         },
-         // removable: false, // Once inserted it can't be removed
-         draggable: true,
-
-       }
-       })
-    
-    editor.BlockManager.add('Video-block', {
-     label: 'Video',
-     attributes:{class:'fa fa-youtube-play gjs-block gjs-one-bg gjs-four-color-h'},
-     content: {
-       type: 'video',
-       //src: 'img/video2.webm',
-       style: {
-         height: '350px',
-         width: '615px',
-         activeOnRender: 1
-       }
-       },
-       })
-
-    editor.BlockManager.add('link-block', {
-     label: 'Link',
-     attributes:{class:'fa fa-link gjs-block gjs-one-bg gjs-four-color-h'},
-     content:{
-      type:'link-block'  
-    }
-    })
-  </script>
-</body>
+    </script>
+  </body>
 
 </html>

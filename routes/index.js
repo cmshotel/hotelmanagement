@@ -8,17 +8,20 @@ var session = require("express-session");
 var router = express.Router();
 
 /* GET home page. */
-router.get("/", function(req, res, next) {
+router.get("/", function (req, res, next) {
+  /**
+   * START INIT PROCESS
+   */
   path = "./bin";
   flg = 0;
-  fs.readdir(path, function(err, items) {
+  fs.readdir(path, function (err, items) {
     for (var i = 0; i < items.length; i++) {
       if (items[i].toString().localeCompare("config.js") == 0) {
         flg = 1;
         var mongoUtil = require("../bin/mongoUtil");
-        mongoUtil.connectToServer(function(err, db) {
+        mongoUtil.connectToServer(function (err, db) {
           // var db = mongoUtil.getDb();
-          db.listCollections().toArray(function(err, collInfos) {
+          db.listCollections().toArray(function (err, collInfos) {
             // collInfos is an array of collection info objects that look like:
             // { name: 'test', options: {} }
             collaction_count = 0;
@@ -38,10 +41,10 @@ router.get("/", function(req, res, next) {
                * Check session is set?
                * if set then goto dashboard otherwise goto login
                */
-              if (req.session.uid) 
+              if (req.session.uid)
                 res.redirect("dashboard");
-              else 
-                res.redirect("theme");
+              else
+                res.render("theme");
             } else {
               /**
                * if database not matches
@@ -61,8 +64,10 @@ router.get("/", function(req, res, next) {
     }
   });
 });
-
-router.post("/Createadmin", function(req, res, next) {
+/**
+ * END INIT PROCESS
+ */
+router.post("/Createadmin", function (req, res, next) {
   hname = req.body.hotelname;
   dburl = req.body.dburl;
   fs = require("fs");
@@ -87,40 +92,40 @@ router.post("/Createadmin", function(req, res, next) {
     //console.log('Config File Created!');
     //connect by mongoUtil
     var mongoUtil = require("../bin/mongoUtil");
-    mongoUtil.connectToServer(function(err, db) {
+    mongoUtil.connectToServer(function (err, db) {
       if (err) {
         //res.send('Database not Connected');
-        fs.unlink("../bin/config.js", function(err) {
+        fs.unlink("../bin/config.js", function (err) {
           if (err) return console.log(err);
           //console.log('file deleted successfully');
         });
         //req.flash('failure','please insert correct link')
         res.send(
           '<h3><font color="red">*Please Insert Correct Database Link</font></h3>' +
-            form.mainform()
+          form.mainform()
         );
       } else {
         var db = mongoUtil.getDb();
 
-        db.listCollections().toArray(function(err, collInfos) {
+        db.listCollections().toArray(function (err, collInfos) {
           if (collInfos.length == 0 || collInfos.length == 1) {
             cols = ["users", "common", "booking", "avail", "contents"];
             for (i = 0; i < 5; i++) {
-              db.createCollection(cols[i], function(err, res) {
+              db.createCollection(cols[i], function (err, res) {
                 if (err) throw err;
               });
             }
             console.log("Collections created");
             res.render("initial-setup/common");
           } else {
-            fs.unlink("./bin/config.js", function(err) {
+            fs.unlink("./bin/config.js", function (err) {
               if (err) return console.log(err);
               console.log("file deleted successfully");
             });
 
             res.send(
               '<h3><font color="red">*please change the databse link or truncate database</font></h3>' +
-                form.mainform()
+              form.mainform()
             );
             //console.log('Please choose another link or empty database');
           }
@@ -131,7 +136,7 @@ router.post("/Createadmin", function(req, res, next) {
   });
 });
 
-router.post("/initializedb", function(req, res, next) {
+router.post("/initializedb", function (req, res, next) {
   noofcat = req.body.noofcat;
   noofplans = req.body.noofplans;
   stayslabs = req.body.stayslabs;
@@ -191,14 +196,12 @@ router.post("/initializedb", function(req, res, next) {
     foodslabarr.push(temp);
   }
 
-  docs = [
-    {
+  docs = [{
       catagories: categ,
       plans: plan
     },
     {
-      gst: [
-        {
+      gst: [{
           stayslabs: stayslabarr
         },
         {
@@ -209,24 +212,22 @@ router.post("/initializedb", function(req, res, next) {
   ];
   console.log(docs);
   var mongoUtil = require("../bin/mongoUtil");
-  mongoUtil.connectToServer(function(err, db) {
+  mongoUtil.connectToServer(function (err, db) {
     console.log(new Date() + " Connect to db......");
-    if (err) {
-    } else {
+    if (err) {} else {
       // var db = mongoUtil.getDb();
-      db.collection("common").insertMany(docs, function(error, inserted) {
+      db.collection("common").insertMany(docs, function (error, inserted) {
         if (error) {
           console.error(error);
         } else {
           //insert email to users database
-          db.collection("users").insertOne(
-            {
+          db.collection("users").insertOne({
               name: aname,
               role: "admin",
               email: email,
               passwd: ""
             },
-            function(err) {
+            function (err) {
               if (err) throw err;
               db.close();
             }
@@ -240,36 +241,32 @@ router.post("/initializedb", function(req, res, next) {
   });
 });
 
-router.post("/getcheckins", function(req, res, next) {
+router.post("/getcheckins", function (req, res, next) {
   var mongoUtil = require("../bin/mongoUtil");
   console.log(new Date() + " POST /getcheckins");
   chkind = req.body.chkindate;
   console.log(chkind);
   var data = null;
-  mongoUtil.connectToServer(function(err, db) {
+  mongoUtil.connectToServer(function (err, db) {
     console.log(err);
     assert.equal(null, err);
     db
       .collection("booking")
-      .find(
-        {
-          $or: [
-            {
-              chkin: chkind
-            },
-            {
-              chkout: chkind
-            }
-          ]
-        },
-        {
-          _id: 1,
-          cname: 1,
-          chkin: 1,
-          chkout: 1
-        }
-      )
-      .toArray(function(err, docs) {
+      .find({
+        $or: [{
+            chkin: chkind
+          },
+          {
+            chkout: chkind
+          }
+        ]
+      }, {
+        _id: 1,
+        cname: 1,
+        chkin: 1,
+        chkout: 1
+      })
+      .toArray(function (err, docs) {
         assert.equal(null, err);
         db.close();
         for (i = 0; i < docs.length; i++) {
@@ -282,22 +279,21 @@ router.post("/getcheckins", function(req, res, next) {
   });
 });
 
-router.post("/getdate", function(req, res, next) {
+router.post("/getdate", function (req, res, next) {
   res.send(new Date());
 });
 
-router.post("/logincred", function(req, res, next) {
+router.post("/logincred", function (req, res, next) {
   var mongoUtil = require("../bin/mongoUtil");
   ux = req.body.ux;
   uy = req.body.uy;
   console.log(ux + " " + uy);
-  mongoUtil.connectToServer(function(err, db) {
+  mongoUtil.connectToServer(function (err, db) {
     if (err) throw err;
     db
       .collection("users")
       .findOne({
-        $and: [
-          {
+        $and: [{
             email: ux
           },
           {
@@ -305,7 +301,7 @@ router.post("/logincred", function(req, res, next) {
           }
         ]
       })
-      .then(function(udata) {
+      .then(function (udata) {
         if (udata) {
           req.session.uid = udata._id;
           req.session.name = udata.name;
@@ -319,14 +315,16 @@ router.post("/logincred", function(req, res, next) {
   });
 });
 
-router.get("/login", function(req, res, next) {
+router.get("/login", function (req, res, next) {
   res.render("login");
 });
 
-router.get("/dashboard", function(req, res, next) {
+router.get("/dashboard", function (req, res, next) {
+  var user = require('../bin/model/priviledge');
   if (req.session.uid && req.session.email)
     res.render("dashboard", {
-      session: req.session
+      session: req.session,
+      user: user
     });
   else res.redirect("/login");
 });
