@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hotel CMS! | </title>
-    <!-- Bootstrap -->
-    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- bootstrap-progressbar -->
-    <link href="/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-    <!-- bootstrap-daterangepicker -->
-    <link href="/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-    <!-- FullCalendar -->
-    <link href="/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
-    <link href="/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
-    <!-- Custom Theme Style -->
-    <link href="/css/custom.min.css" rel="stylesheet">
-</head>
-<body class="nav-md">
-<div class="container body">
-    <div class="main_container">
-        <% include ../sidebar %>
-        <!-- top navigation -->
-        <% include ../nav-top %>
-        <!-- /top navigation -->
-        <!-- Div 1 -->
-        <!-- page content -->
-        <div class="right_col" role="main">
-            <!-- top tiles -->
-            <!-- <div class="row tile_count">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Hotel CMS! | </title>
+        <!-- Bootstrap -->
+        <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="/nprogress/nprogress.css" rel="stylesheet">
+        <!-- iCheck -->
+        <link href="/iCheck/skins/flat/green.css" rel="stylesheet">
+        <!-- bootstrap-progressbar -->
+        <link href="/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+        <!-- JQVMap -->
+        <link href="/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+        <!-- bootstrap-daterangepicker -->
+        <link href="/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+        <!-- FullCalendar -->
+        <link href="/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+        <link href="/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
+        <!-- Custom Theme Style -->
+        <link href="/css/custom.min.css" rel="stylesheet">
+    </head>
+
+    <body class="nav-md">
+        <div class="container body">
+            <div class="main_container">
+                <% include ../sidebar %>
+                    <!-- top navigation -->
+                    <% include ../nav-top %>
+                        <!-- /top navigation -->
+                        <!-- Div 1 -->
+                        <!-- page content -->
+                        <div class="right_col" role="main">
+                            <!-- top tiles -->
+                            <!-- <div class="row tile_count">
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
                     <div class="count">2500</div>
@@ -70,390 +72,447 @@
                     <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
                 </div>
             </div> -->
-            <!-- /top tiles -->
-            <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2>Recent Activities
-                                <small>Sessions</small>
-                            </h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                       aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Settings 1</a>
-                                        </li>
-                                        <li><a href="#">Settings 2</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                            <div class="dashboard-widget-content">
-                                <ul class="list-unstyled timeline widget">
-                                    <li>
-                                        <div class="block">
-                                            <div class="block_content">
-                                                <h2 class="title">
-                                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
-                                                </h2>
-                                                <div class="byline">
-                                                    <span>13 hours ago</span> by <a>Jane Smith</a>
-                                                </div>
-                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie
-                                                    makers. They were your flick, they’d pay to
-                                                    Fast-forward and… <a>Read&nbsp;More</a>
-                                                </p>
+                            <!-- /top tiles -->
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>Recent Activities
+                                                <small>Sessions</small>
+                                            </h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li>
+                                                    <a class="collapse-link">
+                                                        <i class="fa fa-chevron-up"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                                        <i class="fa fa-wrench"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li>
+                                                            <a href="#">Settings 1</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Settings 2</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a class="close-link">
+                                                        <i class="fa fa-close"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div class="dashboard-widget-content">
+                                                <ul class="list-unstyled timeline widget">
+                                                    <li>
+                                                        <div class="block">
+                                                            <div class="block_content">
+                                                                <h2 class="title">
+                                                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                                                </h2>
+                                                                <div class="byline">
+                                                                    <span>13 hours ago</span> by
+                                                                    <a>Jane Smith</a>
+                                                                </div>
+                                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie makers.
+                                                                    They were your flick, they’d pay to Fast-forward and…
+                                                                    <a>Read&nbsp;More</a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="block">
+                                                            <div class="block_content">
+                                                                <h2 class="title">
+                                                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                                                </h2>
+                                                                <div class="byline">
+                                                                    <span>13 hours ago</span> by
+                                                                    <a>Jane Smith</a>
+                                                                </div>
+                                                                <p class="excerpt">Film fes the producers that could fund your project, and
+                                                                    if the buyers liked your flick, they’d pay to Fast-forward
+                                                                    and…
+                                                                    <a>Read&nbsp;More</a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="block">
+                                                            <div class="block_content">
+                                                                <h2 class="title">
+                                                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                                                </h2>
+                                                                <div class="byline">
+                                                                    <span>13 hours ago</span> by
+                                                                    <a>Jane Smith</a>
+                                                                </div>
+                                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie makers.
+                                                                    and if the buyers liked your flick, they’d pay to Fast-forward
+                                                                    and…
+                                                                    <a>Read&nbsp;More</a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="block">
+                                                            <div class="block_content">
+                                                                <h2 class="title">
+                                                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                                                </h2>
+                                                                <div class="byline">
+                                                                    <span>13 hours ago</span> by
+                                                                    <a>Jane Smith</a>
+                                                                </div>
+                                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie makers.
+                                                                    They were where you met the producers that could fund
+                                                                    your project, and if the buyers liked your flick, they’d
+                                                                    pay to Fast-forward and…
+                                                                    <a>Read&nbsp;More</a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="block">
-                                            <div class="block_content">
-                                                <h2 class="title">
-                                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
-                                                </h2>
-                                                <div class="byline">
-                                                    <span>13 hours ago</span> by <a>Jane Smith</a>
-                                                </div>
-                                                <p class="excerpt">Film fes the producers that could fund your
-                                                    project, and if the buyers liked your flick, they’d pay to
-                                                    Fast-forward and… <a>Read&nbsp;More</a>
-                                                </p>
-                                            </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>Calendar Events
+                                                <small>Sessions</small>
+                                            </h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li>
+                                                    <a class="collapse-link">
+                                                        <i class="fa fa-chevron-up"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                                        <i class="fa fa-wrench"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li>
+                                                            <a href="#">Settings 1</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Settings 2</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a class="close-link">
+                                                        <i class="fa fa-close"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix"></div>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="block">
-                                            <div class="block_content">
-                                                <h2 class="title">
-                                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
-                                                </h2>
-                                                <div class="byline">
-                                                    <span>13 hours ago</span> by <a>Jane Smith</a>
-                                                </div>
-                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie
-                                                    makers. and if the buyers liked your flick, they’d pay to
-                                                    Fast-forward and… <a>Read&nbsp;More</a>
-                                                </p>
-                                            </div>
+                                        <div class="x_content">
+                                            <div id='calendar'></div>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="block">
-                                            <div class="block_content">
-                                                <h2 class="title">
-                                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
-                                                </h2>
-                                                <div class="byline">
-                                                    <span>13 hours ago</span> by <a>Jane Smith</a>
-                                                </div>
-                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie
-                                                    makers. They were where you met the producers that could fund your
-                                                    project, and if the buyers liked your flick, they’d pay to
-                                                    Fast-forward and… <a>Read&nbsp;More</a>
-                                                </p>
+                                    </div>
+                                </div>
+                                <!-- end of calander-->
+                                <!-- calendar modal -->
+                                <div id="CalenderModalNew" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">Booking Entry</h4>
                                             </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8 col-sm-12">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2>Calendar Events
-                                <small>Sessions</small>
-                            </h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                       aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Settings 1</a>
-                                        </li>
-                                        <li><a href="#">Settings 2</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                            <div id='calendar'></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of calander-->
-                <!-- calendar modal -->
-                <div id="CalenderModalNew" class="modal fade" tabindex="-1" role="dialog"
-                     aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">Booking Entry</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div id="testmodal" style="padding: 5px 20px;">
-                                    <form id="antoform" class="form-horizontal calender" role="form">
-                                        <!-- <div class="form-group">
+                                            <div class="modal-body">
+                                                <div id="testmodal" style="padding: 5px 20px;">
+                                                    <form id="antoform" class="form-horizontal calender" role="form">
+                                                        <!-- <div class="form-group">
                                             <label class="col-sm-4 control-label">Booking_id</label>
                                             <label class="col-sm-4 control-label">Customer_Name</label>
                                             <label class="col-sm-4 control-label">Check_In/Out</label>
                                         </div> -->
-                                        <div id="calendervalues"></div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close
-                                </button>
-                                <button type="button" class="btn btn-primary antosubmit">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog"
-                     aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel2">Edit Booking Entry</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div id="testmodal2" style="padding: 5px 20px;">
-                                    <div id="calendervalues">
-
+                                                        <div id="calendervalues"></div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary antosubmit">Save changes</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <!-- <form id="antoform2" class="form-horizontal calender" role="form">
+                                </div>
+                                <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel2">Edit Booking Entry</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="testmodal2" style="padding: 5px 20px;">
+                                                    <div id="calendervalues">
+
+                                                    </div>
+                                                    <!-- <form id="antoform2" class="form-horizontal calender" role="form">
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Booking_id</label>
                                             <label class="col-sm-3 control-label">Customer_Name</label>
                                             <label class="col-sm-3 control-label">Check_In/Out</label>
                                         </div>
                                     </form> -->
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">
-                                    Close
-                                </button>
-                                <button type="button" class="btn btn-primary antosubmit2">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="fc_create" data-toggle="modal" data-target="#CalenderModalNew"></div>
-                <div id="fc_edit" data-toggle="modal" data-target="#CalenderModalEdit"></div>
-                <!-- /calendar modal -->
-            </div>
-            <div class="row">
-                <!--Start Qucik Setting-->
-                <div class="col-md-4 col-sm-12 col-xs-12">
-                    <div class="x_panel tile fixed_height_320">
-                        <div class="x_title">
-                            <h2>Quick Settings</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                       aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Settings 1</a>
-                                        </li>
-                                        <li><a href="#">Settings 2</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                            <div class="dashboard-widget-content">
-                                <ul class="quick-list">
-                                    <li><i class="fa fa-calendar-o"></i><a href="#">Settings</a>
-                                    </li>
-                                    <li><i class="fa fa-bars"></i><a href="#">Subscription</a>
-                                    </li>
-                                    <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a></li>
-                                    <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a>
-                                    </li>
-                                    <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a></li>
-                                    <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a>
-                                    </li>
-                                    <li><i class="fa fa-area-chart"></i><a href="#">Logout</a>
-                                    </li>
-                                </ul>
-                                <div class="sidebar-widget">
-                                    <h4>Profile Completion</h4>
-                                    <canvas width="150" height="80" id="chart_gauge_01" class=""
-                                            style="width: 160px; height: 100px;"></canvas>
-                                    <div class="goal-wrapper">
-                                        <span id="gauge-text" class="gauge-value pull-left">0</span>
-                                        <span class="gauge-value pull-left">%</span>
-                                        <span id="goal-text" class="goal-value pull-right">100%</span>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary antosubmit2">Save changes</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div id="fc_create" data-toggle="modal" data-target="#CalenderModalNew"></div>
+                                <div id="fc_edit" data-toggle="modal" data-target="#CalenderModalEdit"></div>
+                                <!-- /calendar modal -->
+                            </div>
+                            <div class="row">
+                                <!--Start Qucik Setting-->
+                                <div class="col-md-4 col-sm-12 col-xs-12">
+                                    <div class="x_panel tile fixed_height_320">
+                                        <div class="x_title">
+                                            <h2>Quick Settings</h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li>
+                                                    <a class="collapse-link">
+                                                        <i class="fa fa-chevron-up"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                                        <i class="fa fa-wrench"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li>
+                                                            <a href="#">Settings 1</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Settings 2</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a class="close-link">
+                                                        <i class="fa fa-close"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div class="dashboard-widget-content">
+                                                <ul class="quick-list">
+                                                    <li>
+                                                        <i class="fa fa-calendar-o"></i>
+                                                        <a href="#">Settings</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-bars"></i>
+                                                        <a href="#">Subscription</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-bar-chart"></i>
+                                                        <a href="#">Auto Renewal</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-line-chart"></i>
+                                                        <a href="#">Achievements</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-bar-chart"></i>
+                                                        <a href="#">Auto Renewal</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-line-chart"></i>
+                                                        <a href="#">Achievements</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-area-chart"></i>
+                                                        <a href="#">Logout</a>
+                                                    </li>
+                                                </ul>
+                                                <div class="sidebar-widget">
+                                                    <h4>Profile Completion</h4>
+                                                    <canvas width="150" height="80" id="chart_gauge_01" class="" style="width: 160px; height: 100px;"></canvas>
+                                                    <div class="goal-wrapper">
+                                                        <span id="gauge-text" class="gauge-value pull-left">0</span>
+                                                        <span class="gauge-value pull-left">%</span>
+                                                        <span id="goal-text" class="goal-value pull-right">100%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-sm-12 col-xs-12">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>To Do List
+                                                <small>Sample tasks</small>
+                                            </h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li>
+                                                    <a class="collapse-link">
+                                                        <i class="fa fa-chevron-up"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                                        <i class="fa fa-wrench"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li>
+                                                            <a href="#">Settings 1</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Settings 2</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a class="close-link">
+                                                        <i class="fa fa-close"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div class="">
+                                                <ul class="to_do">
+                                                    <li>
+                                                        <p>
+                                                            <input type="checkbox" class="flat"> Schedule meeting with new client
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p>
+                                                            <input type="checkbox" class="flat"> Create email address for new intern
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p>
+                                                            <input type="checkbox" class="flat"> Have IT fix the network printer
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p>
+                                                            <input type="checkbox" class="flat"> Copy backups to offsite location
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p>
+                                                            <input type="checkbox" class="flat"> Food truck fixie locavors mcsweeney
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p>
+                                                            <input type="checkbox" class="flat"> Food truck fixie locavors mcsweeney
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p>
+                                                            <input type="checkbox" class="flat"> Create email address for new intern
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p>
+                                                            <input type="checkbox" class="flat"> Have IT fix the network printer
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p>
+                                                            <input type="checkbox" class="flat"> Copy backups to offsite location
+                                                        </p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end of Qucik Setting-->
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-8 col-sm-12 col-xs-12">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2>To Do List
-                                <small>Sample tasks</small>
-                            </h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                       aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Settings 1</a>
-                                        </li>
-                                        <li><a href="#">Settings 2</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                            <div class="">
-                                <ul class="to_do">
-                                    <li>
-                                        <p>
-                                            <input type="checkbox" class="flat"> Schedule meeting with new client
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            <input type="checkbox" class="flat"> Create email address for new intern
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            <input type="checkbox" class="flat"> Have IT fix the network printer
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            <input type="checkbox" class="flat"> Copy backups to offsite location
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            <input type="checkbox" class="flat"> Food truck fixie locavors mcsweeney
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            <input type="checkbox" class="flat"> Food truck fixie locavors mcsweeney
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            <input type="checkbox" class="flat"> Create email address for new intern
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            <input type="checkbox" class="flat"> Have IT fix the network printer
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            <input type="checkbox" class="flat"> Copy backups to offsite location
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end of Qucik Setting-->
             </div>
         </div>
-    </div>
-</div>
 
-<!-- /page content -->
-    <!-- footer content -->
-    <footer>
-        <div class="pull-right">
+        <!-- /page content -->
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
         </div>
-        <div class="clearfix"></div>
-    </footer>
-    <!-- /footer content -->
-    </div>
-    </div>
-    <!-- jQuery -->
-    <script src="/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="/Chart.js/dist/Chart.min.js"></script>
-    <!-- gauge.js -->
-    <script src="/gauge.js/dist/gauge.min.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- iCheck -->
-    <script src="/iCheck/icheck.min.js"></script>
-    <!-- Skycons -->
-    <script src="/skycons/skycons.js"></script>
-    <!-- Flot -->
-    <script src="/Flot/jquery.flot.js"></script>
-    <script src="/Flot/jquery.flot.pie.js"></script>
-    <script src="/Flot/jquery.flot.time.js"></script>
-    <script src="/Flot/jquery.flot.stack.js"></script>
-    <script src="/Flot/jquery.flot.resize.js"></script>
-    <!-- Flot plugins -->
-    <script src="/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-    <script src="/flot-spline/js/jquery.flot.spline.min.js"></script>
-    <script src="/flot.curvedlines/curvedLines.js"></script>
-    <!-- DateJS -->
-    <script src="/DateJS/build/date.js"></script>
-    <!-- JQVMap -->
-    <script src="/jqvmap/dist/jquery.vmap.js"></script>
-    <script src="/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-    <script src="/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="/moment/min/moment.min.js"></script>
-    <script src="/bootstrap-daterangepicker/daterangepicker.js"></script>
-    
-    <!-- FullCalendar -->
-    <script src="/moment/min/moment.min.js"></script>
-    <script src="/fullcalendar/dist/fullcalendar.min.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="/js/custom.js"></script>
-  </body>
+        </div>
+        <!-- jQuery -->
+        <script src="/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- FastClick -->
+        <script src="/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="/nprogress/nprogress.js"></script>
+        <!-- Chart.js -->
+        <script src="/Chart.js/dist/Chart.min.js"></script>
+        <!-- gauge.js -->
+        <script src="/gauge.js/dist/gauge.min.js"></script>
+        <!-- bootstrap-progressbar -->
+        <script src="/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        <!-- iCheck -->
+        <script src="/iCheck/icheck.min.js"></script>
+        <!-- Skycons -->
+        <script src="/skycons/skycons.js"></script>
+        <!-- Flot -->
+        <script src="/Flot/jquery.flot.js"></script>
+        <script src="/Flot/jquery.flot.pie.js"></script>
+        <script src="/Flot/jquery.flot.time.js"></script>
+        <script src="/Flot/jquery.flot.stack.js"></script>
+        <script src="/Flot/jquery.flot.resize.js"></script>
+        <!-- Flot plugins -->
+        <script src="/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+        <script src="/flot-spline/js/jquery.flot.spline.min.js"></script>
+        <script src="/flot.curvedlines/curvedLines.js"></script>
+        <!-- DateJS -->
+        <script src="/DateJS/build/date.js"></script>
+        <!-- JQVMap -->
+        <script src="/jqvmap/dist/jquery.vmap.js"></script>
+        <script src="/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+        <script src="/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+        <!-- bootstrap-daterangepicker -->
+        <script src="/moment/min/moment.min.js"></script>
+        <script src="/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+        <!-- FullCalendar -->
+        <script src="/moment/min/moment.min.js"></script>
+        <script src="/fullcalendar/dist/fullcalendar.min.js"></script>
+        <!-- Custom Theme Scripts -->
+        <script src="/js/custom.js"></script>
+    </body>
+
 </html>
