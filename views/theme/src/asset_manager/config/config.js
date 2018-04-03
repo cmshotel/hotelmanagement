@@ -18,7 +18,7 @@ module.exports = {
   // Upload endpoint, set `false` to disable upload
   // upload: 'https://endpoint/upload/assets',
   // upload: false,
-  upload: 'http://localhost/theme/upload',
+  upload: 0,
 
   // The name used in POST to pass uploaded files
   uploadName: 'files',
