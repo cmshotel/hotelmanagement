@@ -1,0 +1,26 @@
+dashboard
+	->custom.js
+		=>/getcheckins <> 
+
+book
+	->book.js
+		done=> /getgstrate <> /booking/getgstrate
+		done=> /dobooking <> /booking/dobooking
+
+	->index.ejs
+		done=> /getavail <> /booking/getavail
+		=> /getdate <> /getdate	
+
+history	
+	->history.js
+		=> /getview(2) <> /history/getview
+	->custom.min.js
+		done=>/getBookData <> /history/getBookData
+avibility
+	->avail.js
+		=> /getdate
+		done=> /checkfilled(2) <> /avibility/checkfilled
+		done=> /getcat(2)	<> /avibility/getcat
+		done=> /insertavail <> /avibility/insertavail
+		done=> /geteditdata <> /avibility/geteditdata
+		done=> /updateavail <> /avibility/updateavail

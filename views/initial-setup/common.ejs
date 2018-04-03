@@ -1,0 +1,97 @@
+ <html>
+ <head>
+ <h2>Content Management System for Hotel</h2>
+ <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+ <link href="vendor/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+ </head>
+ <body>
+ 	<form method="POST" action="/initializedb">
+ 	<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mail">Administrator's Name<span class="required">*</span></label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" name="aname" id="aname" required="required" class="form-control col-md-7 col-xs-12">  </div><br><br>
+
+ 		<label class="control-label col-md-3 col-sm-3 col-xs-12" for="mail">Owner's Email id<span class="required">*</span></label>
+ 		<div class="col-md-6 col-sm-6 col-xs-12">
+       	<input type="email" name="email" id="email" required="required" class="form-control col-md-7 col-xs-12">  </div><br><br>
+       	<fieldset>
+       		<legend>Catagories</legend>
+		       	<label class="control-label col-md-3 col-sm-3 col-xs-12" for="mail">Number of Catagories<span class="required">*</span></label>
+		 		<div class="col-md-6 col-sm-6 col-xs-12">
+		       	<input type="number" min="1" max="20" name="noofcat" onchange="loadcategoryplanform(this.name,this.value)"  id="noofcat" required="required" class="form-control col-md-7 col-xs-12">  </div><br><br>
+		       	<div id="categoryform"></div>
+        </fieldset>  
+        <fieldset>
+       		<legend>Plans</legend>
+		       	<label class="control-label col-md-3 col-sm-3 col-xs-12" for="mail">Number of Plans<span class="required">*</span></label>
+		 		<div class="col-md-6 col-sm-6 col-xs-12">
+		       	<input type="number" min="1" max="20" onchange="loadcategoryplanform(this.name,this.value)" name="noofplans" id="noofplans" required="required" class="form-control col-md-7 col-xs-12">  </div><br><br>
+		       	<div id="planform"></div>
+          </fieldset> 
+         <fieldset>
+       		<legend>Stay GST slabs</legend>
+       	<label class="control-label col-md-3 col-sm-3 col-xs-12" for="mail">Number of Slabs<span class="required">*</span></label>
+ 		<div class="col-md-6 col-sm-6 col-xs-12">
+       	<input type="number"  min="1" max="20" onchange="loadgstform(this.name,this.value)"  name="stayslabs" id="stayslabs" required="required" class="form-control col-md-7 col-xs-12">  </div><br><br>
+       	<div id="staygstform"></div>
+           </fieldset>   
+           <fieldset>
+       		<legend>Food GST slabs</legend>
+       	<label class="control-label col-md-3 col-sm-3 col-xs-12" for="mail">Number of Slabs<span class="required">*</span></label>
+ 		<div class="col-md-6 col-sm-6 col-xs-12">
+       	<input type="number" min="1" max="20" onchange="loadgstform(this.name,this.value)" name="foodslabs" id="email" required="required" class="form-control col-md-7 col-xs-12">  </div><br><br>
+       	<div id="foodgstform"></div>
+           </fieldset>         
+ 	</div>
+  <input type="submit" value="Submit"><input type="reset" value="Reset">
+ </form>
+  
+ <script src="/vendor/jquery/dist/jquery.min.js"></script>
+ <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+ <script>
+ function loadcategoryplanform(name,valu) {
+  if (name.localeCompare('noofcat')==0){
+    document.getElementById('categoryform').innerHTML="";
+    if(valu>0 && valu<20){
+      for(i=0;i<valu;i++){
+      $('#categoryform').append('<br>Category Name<input type="text"  name="catname'+i+'"><br>');
+      }
+    }
+  }
+  if(name.localeCompare('noofplans')==0){
+    document.getElementById('planform').innerHTML="";
+    if(valu>0 && valu<20){
+      for(i=0;i<valu;i++){
+      $('#planform').append('<br>Plan Name<input type="text"  name="planname'+i+'"><br>');
+      }
+    }
+
+  }
+  
+}
+function loadgstform(name,valu){
+  if (name.localeCompare('stayslabs')==0){
+    document.getElementById('staygstform').innerHTML="";
+    if(valu>0 && valu<20){
+      for(i=0;i<valu;i++){
+      $('#staygstform').append('<br>From<input type="number" min="0" name="stayslabfrom'+i+'">&emsp;&emsp;To <input type="number" min="0" name="stayslabto'+i+'">&emsp;&emsp;Percentage <input type="number" min="0" max="100" name="stayslabper'+i+'"><br>');
+      }
+    }
+
+  }
+  if(name.localeCompare('foodslabs')==0){
+    document.getElementById('foodgstform').innerHTML="";
+    if(valu>0 && valu<20){
+      for(i=0;i<valu;i++){
+      $('#foodgstform').append('<br>From<input type="number" min="0" name="foodslabfrom'+i+'">&emsp;&emsp;To <input type="number" min="0" name="foodslabto'+i+'">&emsp;&emsp;Percentage <input type="number" min="0" max="100" name="foodslabper'+i+'"><br>');
+      }
+    }
+
+  }
+  
+}
+ </script>
+
+ </body>
+ </html>
