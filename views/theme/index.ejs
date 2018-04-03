@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="dist/css/grapes.min.css">
     <script src="dist/grapes.min.js"></script>
     <script src="dist/grapesjs-plugin.js"></script>
+    <script src="dist/test.js"></script>
     <style>
       body,
       html {
@@ -39,8 +40,9 @@
         var editor = grapesjs.init({
           height: '100%',
           container: '#jups',
+          fromElement: true,
           storageManager: {
-            id: 'jups-',
+            id: 'jups_',
             type: 'remote',
             stepsBeforeSave: 2,
             storeComponents: false,
@@ -51,83 +53,21 @@
             urlStore: "sendContent",
             urlLoad: "loadContent",
             params: {}, // For custom values on requests
-
-            // id: 'jups-', // Prefix identifier that will be used inside storing and loading
-            // type: 'local', // Type of the storage
-            // autosave: true, // Store data automatically
-            // stepsBeforeSave: 1, // If autosave enabled, indicates how many changes are necessary before store method is triggered
-            // storeComponents: false, // Enable/Disable storing of components in JSON format
-            // storeStyles: false, // Enable/Disable storing of rules/style in JSON format
-            // storeHtml: true, // Enable/Disable storing of components as HTML string
-            // storeCss: true, // Enable/Disable storing of rules/style as CSS string
           },
-          plugins: ['save-to-db'],
-        });
-
-        editor.BlockManager.add('testBlock', {
-          label: 'Block',
-          attributes: {
-            class: 'gjs-fonts gjs-f-b1'
-          },
-          content: `<div style="padding-top:50px; padding-bottom:50px; text-align:center title-draggable='true'">Test block</div>`
-        })
-
-        editor.BlockManager.add('imageBlock', {
-          label: 'Imageslider',
-          attributes: {
-            class: 'gjs-block fa fa-slideshare'
-          },
-          content: {
-            type: 'image',
-            src: 'G:/trial.jpg',
-            activeOnRender: 1
-
-          }
-        })
-
-        editor.BlockManager.add('map-block', {
-          label: 'Map',
-
-          attributes: {
-            class: 'fa fa-map-o gjs-block gjs-one-bg gjs-four-color-h'
-          },
-          content: {
-            type: 'map', // Built-in 'map' component
-            style: {
-              height: '350px'
+          assetManager: {
+            assets: [],
+            upload: 1,
+            autoAdd: 1,
+            uploadFile: function (e) {
+              var file = e.dataTransfer ? e.dataTransfer.files : e.target.files;
+              console.log(file.filetoupload);
             },
-            // removable: false, // Once inserted it can't be removed
-            draggable: true,
-
-          }
-        })
-
-        editor.BlockManager.add('Video-block', {
-          label: 'Video',
-          attributes: {
-            class: 'fa fa-youtube-play gjs-block gjs-one-bg gjs-four-color-h'
           },
-          content: {
-            type: 'video',
-            //src: 'img/video2.webm',
-            style: {
-              height: '350px',
-              width: '615px',
-              activeOnRender: 1
-            }
-          },
-        })
 
-        editor.BlockManager.add('link-block', {
-          label: 'Link',
-          attributes: {
-            class: 'fa fa-link gjs-block gjs-one-bg gjs-four-color-h'
-          },
-          content: {
-            type: 'link-block'
-          }
-        })
+          plugins: ['save-to-db', 'default-block'],
+        });
       }
+      console.log(editor.AssetManager.getConfig())
 
     </script>
   </body>

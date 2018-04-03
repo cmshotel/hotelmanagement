@@ -37,22 +37,30 @@ router.get("/loadContent", function (req, res, next) {
 });
 router.post("/sendContent", function (req, res, next) {
   var content = req.body;
-  req.body = {
-    action: "jups",
-    content: req.body
-  };
-  mongoUtil.connectToServer(function (err, db) {
-    if (err) throw err;
-    db.collection("contents").updateOne({
-        action: "jups"
-      },
-      req.body, {
-        upsert: true
-      }
-    );
-  });
-  res.json({
-    data: "success"
-  });
+  console.log("Site Version" + req.body);
+  // req.body = {
+  //   action: "jups",
+  //   content: req.body
+  // };
+  // mongoUtil.connectToServer(function (err, db) {
+  //   if (err) throw err;
+  //   db.collection("contents").updateOne({
+  //       action: "jups"
+  //     },
+  //     req.body, {
+  //       upsert: true
+  //     }
+  //   );
+  // });
+  // res.json({
+  //   data: "success"
+  // });
+});
+
+router.get('/version', function (req, res, next) {
+  if (req.session.uid && req.session.email)
+    res.render("theme/version", {
+      session: req.session
+    });
 });
 module.exports = router;
