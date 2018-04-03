@@ -18,7 +18,7 @@ module.exports = {
   // Upload endpoint, set `false` to disable upload
   // upload: 'https://endpoint/upload/assets',
   // upload: false,
-  upload: 0,
+  upload: 'http://localhost/theme/upload',
 
   // The name used in POST to pass uploaded files
   uploadName: 'files',
@@ -80,5 +80,5 @@ module.exports = {
   modalTitle: 'Select Image',
 
   //Default placeholder for input
-  inputPlaceholder: 'http://path/to/the/image.jpg'
+  inputPlaceholder: 'http://path/to/the/image'
 };
