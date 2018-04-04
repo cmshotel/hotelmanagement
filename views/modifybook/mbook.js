@@ -72,8 +72,10 @@ function fetchresults(){
           $('#subcontent').append('<table id="listbookings"  ></table>');
           $('#listbookings').append('<tr><th>Customer Name</th><th>Booking Date</th><th>Check in Date</th><th>Category</th><th>Nights</th><th>Rooms</th><th>Status</th><th>Select</th></tr>')
         	$('#listbookings').append('<tr><td class="nopad" colspan="8"><hr></tr>');
+        	
         	for(i=0;i<data.length;i++){
-        		$('#listbookings').append('<tr><td>'+data[i].cname+'</td><td>'+data[i].bookdate+'</td><td>'+data[i].chkin+'</td><td>'+data[i].catagory+'</td><td>'+data[i].nights+'</td><td>'+data[i].rooms+'</td><td>'+data[i].status+'</td><td><input type="radio" name="bookid" value="'+data[i]._id+'"');
+        		
+        		$('#listbookings').append('<tr><td>'+data[i].cname+'</td><td>'+data[i].bookdate+'</td><td>'+data[i].chkin+'</td><td>'+data[i].catagory+'</td><td>'+data[i].nights+'</td><td>'+data[i].rooms+'</td><td>'+data[i].status+'</td><td><input type="radio" name="bookid" value="'+data[i]._id+'"></td></tr>');
         	}
         	$('#subcontent').append('<br><br><center><button id="editbutton" onclick="fetchfulldata()">Edit Booking</button></center>');
 
@@ -86,7 +88,9 @@ function fetchresults(){
 }
 function fetchfulldata(){
 	$('#editbutton').attr("disabled", "disabled");
-	bid=$('input[name="bookid"]').val();
+	
+	bid=$('input[name=bookid]:checked').val();
+	console.log(bid);
 	
 	$('#subcontent').html('');
 	$('#subcontent').append('<fieldset id="otherfield"><legend><h2>Customer & Payment Details</h2></legend></fieldset>');
