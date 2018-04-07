@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Hotel CMS! | </title>
+
+    <!-- Bootstrap -->
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="/css/custom.css" rel="stylesheet">
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <!-- sidebar navigation -->
+        <% include ../sidebar %>
+          <!-- /sidebar navigation -->
+
+          <!-- top navigation -->
+          <% include ../nav-top %>
+            <!-- /top navigation -->
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+              <div id="maincontent">
+                <div class="row">
+                  <div class="col-sm-12 col-xs-12">
+                    <div class="card-box table-responsive">
+                      <table id="datatable-version" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                        <thead>
+                          <th>Version</th>
+                          <th>Title</th>
+                          <th>Content</th>
+                          <th>Status</th>
+                          <th>Update</th>
+                        </thead>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--/ page content -->
+      </div>
+    </div>
+    <!-- jQuery -->
+    <script src="/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="/nprogress/nprogress.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="/iCheck/icheck.min.js"></script>
+    <!-- DateJS -->
+    <script src="/DateJS/build/date.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="/moment/min/moment.min.js"></script>
+    <script src="/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- Datatables -->
+    <script src="/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="/js/custom.min.js"></script>
+    <!-- Custom history fetch Scripts -->
+    <script src="/js/site_version.js"></script>
+  </body>
+
+</html>

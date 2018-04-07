@@ -1,50 +1,71 @@
-var mongo = require('mongodb');
-var murl = "mongodb://admin:admin@ds141796.mlab.com:41796/cms";
-var bodyParser = require("body-parser");
-var assert = require('assert');
-var express = require('express');
+// var mongo = require('mongodb');
+// var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
+var express = require("express");
 var router = express.Router();
+var bodyParser = require("body-parser");
+var assert = require("assert");
+var mongoUtil = require("../../bin/mongoUtil");
+var fileUpload = require('express-fileupload');
 
-router.get('/', function (req, res, next) {
-	console.log(new Date+" POST /sendContent");
-	if (req.xhr) {
-		var saved_content;
-		mongo.connect(murl, function (err, db) {
-			db.collection('contents').find().toArray(function (err, result) {
-				if (err) 
-					return console.log("Error saving html content into database: " + err);
-				if (result != '') {
-					saved_content = result['0'].content;
-					res.setHeader('Access-Control-Allow-Methods', 'GET');
-					res.json({
-						// user: uid,
-						content: saved_content
-					});
-					console.log(result['0'].content);
-				} else {
-					//saved_content = ;
-					res.setHeader('Access-Control-Allow-Methods', 'GET');
-					res.json({
-						user: uid
-					});
-					console.log("no data");
-				}
-			});
-		});
-	} else {
-		res.render('theme/blank');
-	}
+router.get("/", function (req, res, next) {
+  console.log(req.session);
+  if (req.session.uid && req.session.email)
+    res.render("theme/index", {
+      session: JSON.stringify(req.session)
+    });
+  else res.redirect('/login');
 });
 
-router.post('/sendContent', function (req, res, next) {
-	console.log(new Date+" POST /sendContent");
-	var content = req.body.content;
-	mongo.connect(murl, function (err, db) {
-		db.collection('contents').updateOne({
-			"action": "send-content"
-		}, req.body, {
-			upsert: true,
-		});
-	});
+router.get("/loadContent", function (req, res, next) {
+  mongoUtil.connectToServer(function (err, db) {
+    if (err) throw err;
+    db.collection("contents")
+      .find()
+      .toArray(function (err, result) {
+        if (err)
+          console.log("Error fetching html content from database: " + err);
+        if (result != "") {
+          res.setHeader("Access-Control-Allow-Methods", "GET");
+          res.json(result[0].content);
+        } else {
+          res.setHeader("Access-Control-Allow-Methods", "GET");
+          res.json({
+            session: req.session
+          });
+        }
+      });
+  });
+});
+router.post("/sendContent", function (req, res, next) {
+  var content = req.body;
+  req.body = {
+    action: "jups",
+    content: req.body
+  };
+  mongoUtil.connectToServer(function (err, db) {
+    if (err) throw err;
+    db.collection("contents").updateOne({
+        action: "jups"
+      },
+      req.body, {
+        upsert: true
+      }
+    );
+  });
+  res.json({
+    data: "success"
+  });
+});
+
+router.post('/upload/assets', function (req, res, next) {
+  console.log(req);
+  console.log(req.files);
+});
+
+router.get('/version', function (req, res, next) {
+  if (req.session.uid && req.session.email)
+    res.render("theme/version", {
+      session: req.session
+    });
 });
 module.exports = router;

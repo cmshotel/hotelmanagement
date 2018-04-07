@@ -20,7 +20,7 @@
     $.ajax({
 
   		type: "post",
-  		url: "/getbardata",
+  		url: "/charts/getbardata",
   		dataType: 'json',
   		async:true,
 
@@ -61,7 +61,7 @@ function findforchart(){
 	$.ajax({
 
 		type: "post",
-		url: "/getbardata",
+		url: "/charts/getbardata",
 		dataType: 'json',
 		async:true,
 

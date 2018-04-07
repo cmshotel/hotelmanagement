@@ -1,7 +1,8 @@
 function openbooking(v) {
+	console.log('open booking value '+v)
 
 	$("#bookinghold").html("<table cellpadding=\"10\">" +
-		"<tr><td>Catagory</td><td><input type=\"text\" value=" + v + " name=\"catagory\" readonly></td></tr>" +
+		"<tr><td>Catagory</td><td><input type=\"text\" value=\""+ v +"\" name=\"catagory\" readonly></td></tr>" +
 		"<tr><td>Plan</td><td><div id=\"planshold\"></div>" +
 		"<tr><td>Extrabed</td><td><input type=\"number\" min=\"0\" onchange=\"showquatation()\" value=\"0\" max=\"200\" name=\"Extrabed\"></td></tr>" +
 		"<tr><td>Child with Extrabed</td><td><input type=\"number\" min=\"0\" onchange=\"showquatation()\" max=\"200\" value=\"0\" name=\"Cwextra\"></td></tr>" +
@@ -292,48 +293,46 @@ function calculategst() {
 
 
 function dobooking() {
-	console.log('dobooking')
 	console.log($("#resdate").val());
 	var resdate = ($("#resdate").val()).split(" - ");
 	tmp = resdate[0].split("/");
 	cin = tmp[2] + "-" + tmp[0] + "-" + tmp[1];
 	tmp = resdate[1].split("/");
 	cout = tmp[2] + "-" + tmp[0] + "-" + tmp[1];
-	cname = document.getElementsByName('cname')[0].value
-	contact = document.getElementsByName('contact')[0].value
-	email = document.getElementsByName('email')[0].value
-	bd  = (document.getElementsByName('bookdate')[0].value).split('/');
-	bookdate=(bd[2]+'-'+bd[0]+'-'+bd[1]);
-	
-	rooms = document.getElementsByName('norooms')[0].value
-	resdate = document.getElementsByName('resdate')[0].value
-	chkin = cin
-	chkout = cout
+	cname = document.getElementsByName('cname')[0].value;
+	contact = document.getElementsByName('contact')[0].value;
+	email = document.getElementsByName('email')[0].value;
+	bk = document.getElementsByName('bookdate')[0].value.split('/');
+	bookdate=bk[2]+"-"+bk[0]+"-"+bk[1];
+	rooms = document.getElementsByName('norooms')[0].value;
+	resdate = document.getElementsByName('resdate')[0].value;
+	chkin = cin;
+	chkout = cout;
 	ci = new Date(chkin);
 	co = new Date(chkout);
 	var oneDay = 24 * 60 * 60 * 1000;
 	nights = Math.round(Math.abs((ci.getTime() - co.getTime()) / (oneDay)));
-	cat = document.getElementsByName('catagory')[0].value
-	plan = document.getElementById('plan').value
-	extrabed = document.getElementsByName('Extrabed')[0].value
-	cwextrabed = document.getElementsByName('Cwextra')[0].value
-	cwoextrabed = document.getElementsByName('Cwoextra')[0].value
-	totroomcost = document.getElementsByName('roomcost')[0].value
-	roomcost = Math.round((parseFloat(totroomcost) / (parseFloat(nights) * parseFloat(rooms))) * 100) / 100
-	roomcost = roomcost.toString()
-	plancost = document.getElementsByName('plancost')[0].value
-	extraperson = document.getElementsByName('extrabedcost')[0].value
-	childwex = document.getElementsByName('childwexcost')[0].value
-	childwoex = document.getElementsByName('childwoexcost')[0].value
-	tothotelcost = document.getElementsByName('hotelcost')[0].value
-	staygstrate = document.getElementsByName('gststayrate')[0].value
-	foodgstrate = document.getElementsByName('gstfoodrate')[0].value
-	staygst = document.getElementsByName('totstaygst')[0].value
-	foodgst = document.getElementsByName('totfoodgst')[0].value
-	totalgst = document.getElementsByName('totgst')[0].value
-	finalpr = document.getElementsByName('finalwithgst')[0].value
-	pmtinfo = document.getElementById('paymentinfo').value
-	paid = document.getElementById('amtpaid').value
+	cat = document.getElementsByName('catagory')[0].value;
+	plan = document.getElementById('plan').value;
+	extrabed = document.getElementsByName('Extrabed')[0].value;
+	cwextrabed = document.getElementsByName('Cwextra')[0].value;
+	cwoextrabed = document.getElementsByName('Cwoextra')[0].value;
+	totroomcost = document.getElementsByName('roomcost')[0].value;
+	roomcost = Math.round((parseFloat(totroomcost) / (parseFloat(nights) * parseFloat(rooms))) * 100) / 100;
+	roomcost = roomcost.toString();
+	plancost = document.getElementsByName('plancost')[0].value;
+	extraperson = document.getElementsByName('extrabedcost')[0].value;
+	childwex = document.getElementsByName('childwexcost')[0].value;
+	childwoex = document.getElementsByName('childwoexcost')[0].value;
+	tothotelcost = document.getElementsByName('hotelcost')[0].value;
+	staygstrate = document.getElementsByName('gststayrate')[0].value;
+	foodgstrate = document.getElementsByName('gstfoodrate')[0].value;
+	staygst = document.getElementsByName('totstaygst')[0].value;
+	foodgst = document.getElementsByName('totfoodgst')[0].value;
+	totalgst = document.getElementsByName('totgst')[0].value;
+	finalpr = document.getElementsByName('finalwithgst')[0].value;
+	pmtinfo = document.getElementById('paymentinfo').value;
+	paid = document.getElementById('amtpaid').value;
 
 	$.ajax({
 
@@ -375,7 +374,6 @@ function dobooking() {
 		}),
 		contentType: 'application/json',
 		success: function (data) {
-
 			console.log(data.response + "        " + data);
 
 

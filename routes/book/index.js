@@ -1,32 +1,40 @@
-var assert = require('assert');
-var mongo = require('mongodb');
-var murl = "mongodb://admin:admin@ds141796.mlab.com:41796/cms";
 var express = require('express');
 var router = express.Router();
+// var mongo = require('mongodb');
+var assert = require('assert');
+var mongoUtil = require('../../bin/mongoUtil');
+// var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
+
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.render('book/index');
+router.get('/', function (req, res, next) {
+	if (req.session.uid && req.session.email)
+		res.render('book', {
+			session: req.session
+		});
+	else
+		res.redirect('/login');
+	//   res.render('book/index');
 });
 
 router.post('/getavail', function (req, res) {
 	/* change date formate */
 	var chkin = (req.body.checkindate).split("/");
 	var chkout = (req.body.checkoutdate).split("/");
-	console.log(chkin[2]+"-"+chkin[0]+"-"+chkin[1]);
+	console.log(chkin[2] + "-" + chkin[0] + "-" + chkin[1]);
 	var room = req.body.norooms;
 	// chin = new Date(chkin);
 	// chout = new Date(chkout);
 	// var oneDay = 24 * 60 * 60 * 1000;
 	days = req.body.nights; /* Math.round(Math.abs((cho.getTime() - chi.getTime())/(oneDay))); */
 	var resarr = [];
-	
-	mongo.connect(murl, function (err, db) {
+
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		var cursor = db.collection('avail').find({
 			"date": {
-				$gte: chkin[2]+"-"+chkin[0]+"-"+chkin[1],
-				$lt: chkout[2]+"-"+chkout[0]+"-"+chkout[1]
+				$gte: chkin[2] + "-" + chkin[0] + "-" + chkin[1],
+				$lt: chkout[2] + "-" + chkout[0] + "-" + chkout[1]
 			}
 		});
 		catarr = [];
@@ -108,12 +116,13 @@ router.post('/getavail', function (req, res) {
 });
 
 router.post('/getgstrate', function (req, res) {
+	console.log("getgstrate");
 	roompr = req.body.roompr;
 	stayrate = 0;
 	foodrate = 0;
 	empty = {};
 
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		var cursor = db.collection('common').find({}).project({
 			gst: 1,
@@ -164,22 +173,18 @@ router.post('/dobooking', function (req, res) {
 	// }
 
 	bookingprocess = 1;
-	contact = req.body.contact
-	chkin = req.body.chkin
-	chkout = req.body.chkout
-	room = req.body.rooms
-	catagory = req.body.catagory
-	resp = "Failure"
-	decr = (-1) * room
+	contact = req.body.contact;
+	chkin = req.body.chkin;
+	chkout = req.body.chkout;
+	room = req.body.rooms;
+	catagory = req.body.catagory;
+	resp = "Failure";
+	decr = (-1) * room;
 	flag = false;
+	days = req.body.nights;
 
-	//check availability again
-	chin = new Date(chkin);
-	chout = new Date(chkout);
-	days = chout.getDate() - chin.getDate();
 	var resarr = [];
-
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		db.collection('booking').find({
 			"contact": contact,
@@ -187,13 +192,13 @@ router.post('/dobooking', function (req, res) {
 			"chkout": chkout,
 			"catagory": catagory
 		}).toArray(function (err, docs) {
-			db.close()
+			db.close();
 			if (docs.length != 0) {
 				res.send({
 					"response": "available"
 				})
 			} else {
-				mongo.connect(murl, function (err, db) {
+				mongoUtil.connectToServer(function (err, db) {
 					assert.equal(null, err);
 					var cursor = db.collection('avail').find({
 						"date": {
@@ -228,7 +233,7 @@ router.post('/dobooking', function (req, res) {
 									flag = true;
 									//insertion of booking
 									//db.collection('booking').insertOne(req.body);
-									mongo.connect(murl, function (err, db) {
+									mongoUtil.connectToServer(function (err, db) {
 										assert.equal(null, err);
 										db.collection("booking").insertOne(req.body, function (err, dbresp) {
 											if (err) {
@@ -237,7 +242,7 @@ router.post('/dobooking', function (req, res) {
 											};
 											db.close();
 										});
-										mongo.connect(murl, function (err, db) {
+										mongoUtil.connectToServer(function (err, db) {
 											assert.equal(null, err);
 											db.collection("avail").update({
 												"date": {

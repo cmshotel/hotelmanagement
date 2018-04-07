@@ -1,0 +1,102 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "aviary",
+        "scope": null,
+        "escapedName": "aviary",
+        "name": "aviary",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "E:\\College\\SEM8\\dev\\dev"
+    ]
+  ],
+  "_from": "aviary@latest",
+  "_id": "aviary@0.1.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/aviary",
+  "_npmUser": {
+    "name": "arifuchs",
+    "email": "afuchs1@gmail.com"
+  },
+  "_npmVersion": "1.1.65",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "aviary",
+    "scope": null,
+    "escapedName": "aviary",
+    "name": "aviary",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "http://registry.npmjs.org/aviary/-/aviary-0.1.1.tgz",
+  "_shasum": "51d8835c3e6c1ce2f1144e528a9586b245c87509",
+  "_shrinkwrap": null,
+  "_spec": "aviary",
+  "_where": "E:\\College\\SEM8\\dev\\dev",
+  "author": {
+    "name": "Aviary",
+    "email": "api@aviary.com",
+    "url": "aviary.com"
+  },
+  "bugs": {
+    "url": "https://github.com/AviaryInc/aviary-nodejs/issues"
+  },
+  "contributors": [
+    {
+      "name": "Ari Fuchs",
+      "email": "ari@aviary.com"
+    }
+  ],
+  "dependencies": {
+    "crypto": "*",
+    "node-uuid": ">=1.4.0",
+    "querystring": "*"
+  },
+  "description": "A NodeJS implementation of the Aviary Server-side Render Api.",
+  "devDependencies": {
+    "chai": "*",
+    "coffee-script": "*",
+    "mocha": "*",
+    "sinon": "*"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "51d8835c3e6c1ce2f1144e528a9586b245c87509",
+    "tarball": "https://registry.npmjs.org/aviary/-/aviary-0.1.1.tgz"
+  },
+  "engines": {
+    "node": ">= 0.8"
+  },
+  "homepage": "http://aviary.com",
+  "keywords": [
+    "photo",
+    "image",
+    "render"
+  ],
+  "maintainers": [
+    {
+      "name": "arifuchs",
+      "email": "afuchs1@gmail.com"
+    }
+  ],
+  "name": "aviary",
+  "optionalDependencies": {},
+  "readme": "# aviary-nodejs\n\nA NodeJS implementation of the Aviary Server-side Render Api.\n\n## Installation\n\nTo install via npm:\n\n\tnpm install aviary\n\n## Usage\n\nRight now the Aviary Render API is limited to Enterprise partners. Please contact [partners@aviary.com](mailto:partners@aviary.com) for more information.\n\n### Sample Usage\n\n\tvar Aviary = require('../lib/aviary').Aviary;\n\n\tvar aviary = new Aviary('<apiKey>', '<apiSecret');\n\n\tvar renderConfig = {\n\t\turl: '<image url>',\n\t\tactionList: '<actionlist'\n\t};\n\n\tvar callback = function(error, url) {\n\t\tconsole.log(url);\n\t}\n\n\taviary.renderAndWait(renderConfig, callback);",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/AviaryInc/aviary-nodejs.git"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha ./test"
+  },
+  "version": "0.1.1"
+}

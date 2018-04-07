@@ -1,15 +1,19 @@
-$('.submit').on('click', function(e){
-    e.preventDefault()
+$('#log').on('click', function (e) {
+    // e.preventDefault()
     $.ajax({
-        url: '/login',
-        type: 'post',
+        type: "post",
+        url: "/logincred",
         dataType: 'json',
-        data:{
+        data: JSON.stringify({
             ux: $('#uname').val(),
             uy: $('#pwd').val(),
-        },
-        success: function(data){
+        }),
+        contentType: 'application/json',
+        success: function (data) {
             alert(data);
         }
     });
 });
+
+var name = $('#name').val()
+var data = '{"name": name,}';

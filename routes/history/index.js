@@ -1,24 +1,29 @@
-var mongo = require('mongodb');
-var murl = "mongodb://admin:admin@ds141796.mlab.com:41796/cms";
-
-var bodyParser = require("body-parser");
-var assert = require('assert');
+// var mongo = require('mongodb');
+// var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
 var express = require('express');
 var router = express.Router();
+var bodyParser = require("body-parser");
+var assert = require('assert');
+var mongoUtil = require('../../bin/mongoUtil');
 
-router.use(function(req, res, next) {
+router.use(function (req, res, next) {
 	console.log('Url is: ' + req.url);
 	next(); // make sure we go to the next routes and don't stop here
-  });
+});
 
 router.get('/', function (req, res) {
-	res.render('history/index');
-	console.log(new Date()+"/history");
+	if (req.session.uid && req.session.email)
+		res.render('history', {
+			session: req.session
+		});
+	else
+		res.redirect('/login');
+	// res.render('history/index');
 });
 
 router.post('/getBookedData', function (req, res) {
-	console.log(new Date()+ " POST  /getBookedData");
-	mongo.connect(murl, function (err, db) {
+	console.log(new Date() + " POST  /getBookedData");
+	mongoUtil.connectToServer(function (err, db) {
 		console.log(err);
 		collection = db.collection("booking");
 		collection.find().limit(20).toArray(function (err, docs) {
@@ -76,7 +81,7 @@ router.post('/getview', function (req, res) {
 	var flg = req.body.flg;
 
 	if (flg.localeCompare("bookdate") == 0) {
-		mongo.connect(murl, function (err, db) {
+		mongoUtil.connectToServer(function (err, db) {
 			assert.equal(null, err);
 			db.collection('booking').find({
 				"bookdate": {
@@ -92,7 +97,7 @@ router.post('/getview', function (req, res) {
 	}
 
 	if (flg.localeCompare("chkindate") == 0) {
-		mongo.connect(murl, function (err, db) {
+		mongoUtil.connectToServer(function (err, db) {
 			assert.equal(null, err);
 			db.collection('booking').find({
 				"chkin": {

@@ -4,13 +4,19 @@ var murl = "mongodb://admin:admin@ds141796.mlab.com:41796/cms";
 var express = require('express');
 var router = express.Router();
 var ObjectId = require('mongodb').ObjectID;
+var mongoUtil = require('../../bin/mongoUtil');
 
 
 
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render('modifybook/index');
+	if (req.session.uid && req.session.email)
+		res.render('modifybook/index', {
+			session: req.session
+		});
+	else
+		res.redirect('/login');
 });
 
 /*
@@ -19,7 +25,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/getsuggestion', function(req, res, next) {
 	key=req.body.keyword
- mongo.connect(murl, function (err, db) {
+mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		db.collection('booking').find({"email": new RegExp(key)},{"email":1}).toArray(function(err,docs){
 			jso=[];
@@ -37,7 +43,7 @@ router.post('/getsuggestion', function(req, res, next) {
 */
 router.post('/listofbookings', function(req, res, next) {
 	key=req.body.keyword
- mongo.connect(murl, function (err, db) {
+ mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		db.collection('booking').find({"email": key},{"_id":1,"cname":1,"rooms":1,"bookdate":1,"nights":1,"chkin":1,"catagory":1,"status":1}).sort({"bookdate":-1}).toArray(function(err,docs){
 			jso=[];
@@ -51,7 +57,7 @@ router.post('/listofbookings', function(req, res, next) {
 
 router.post('/fetchfullinfo', function(req, res, next) {
 	key=req.body.keyword	
- mongo.connect(murl, function (err, db) {
+ mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		db.collection('booking').find({"_id": ObjectId(key)}).toArray(function(err,docs){
 			
@@ -104,7 +110,7 @@ router.post('/coreupdatecheck', function(req, res, next) {
 		nights=new_json.nights; 
 		
 
-		mongo.connect(murl, function (err, db) {
+		mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		db.collection('avail').find({
 			"date": {
@@ -117,16 +123,6 @@ router.post('/coreupdatecheck', function(req, res, next) {
 			planpr=0;
 			catpr=0;
 			exbedpr=0;
-
-
-			/*
-			*
-			*make catagory & plan price
-			*
-			*
-			*/
-
-
 
 
 			if(docs.length==nights){
@@ -222,7 +218,7 @@ router.post('/coreupdatecheck', function(req, res, next) {
 			
 
 
-			mongo.connect(murl, function (err, db) {
+			mongoUtil.connectToServer(function (err, db) {
 				assert.equal(null, err);
 				db.collection('avail').find({
 					"date": {
@@ -288,7 +284,7 @@ router.post('/coreupdatecheck', function(req, res, next) {
 		else{
 			if(plan_change){
 
-			mongo.connect(murl, function (err, db) {
+			mongoUtil.connectToServer(function (err, db) {
 				assert.equal(null, err);
 				db.collection('avail').find({
 					"date": {
@@ -327,6 +323,14 @@ router.post('/coreupdatecheck', function(req, res, next) {
 			});
 
 			}
+			else{
+				available=true;
+				
+
+				ret={"available":available,"notavailable":notavailablearr,"categorypr":old_json.roomprice,"planpr":old_json.planpr,"extrabedpr":"old"};
+					res.send(ret) ;
+
+			}
 		}
 
 
@@ -342,12 +346,12 @@ router.post('/cancelbooking', function(req, res, next) {
 	bid=req.body.bookid;
 	
 
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 				assert.equal(null, err);
 				db.collection('booking').updateOne({"_id": ObjectId(bid)},{"$set" : {"status":"cancelled"}},function(err,resul){
 					if(err){ans={"resp":false};}
 						else{ans={"resp":true};}
-						mongo.connect(murl, function (err, db) {
+						mongoUtil.connectToServer(function (err, db) {
 								assert.equal(null, err);
 								db.collection('booking').find({"_id": ObjectId(bid)}).toArray(function(err,docs){
 									
@@ -356,7 +360,7 @@ router.post('/cancelbooking', function(req, res, next) {
 									rooms=parseInt(docs[0].rooms);
 									catagory=docs[0].catagory;
 
-									mongo.connect(murl, function (err, db) {
+									mongoUtil.connectToServer(function (err, db) {
 											assert.equal(null, err);
 											db.collection("avail").update({
 												"date": {

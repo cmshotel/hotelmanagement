@@ -126,7 +126,7 @@ function fetchfulldata(){
 
 	$('#coreedit').append('<tr><td>Total GST</td><td><input type="number" min="0"  name="totgst" ></td><td>Final Price</td><td><input type="number" min="1"  name="finalpr" ></td></tr>');
 	$('#coreedit').append('<tr><td>Status</td><td><div id="status"></div></td></tr>');
-	$('#coreedit').append('<tr><td colspan="2"><button id="checkupdatebutton" onclick="coreupdatecheck()" disabled="disabled">Check Update</button></td><td colspan="2"><button id="coreupdatebutton" onclick="" disabled="disabled">Update Booking</button></td></tr>');
+	$('#coreedit').append('<tr><td colspan="2"><button id="checkupdatebutton" onclick="coreupdatecheck()" disabled="disabled">Check Update</button></td><td colspan="2"><button id="coreupdatebutton" onclick="alert(\'at this moment this is not working\')" disabled="disabled">Update Booking</button></td></tr>');
 	$('#coreedit').append('<tr><td colspan="4"><button id="cancelbutton" onclick="cancelbooking()" disabled="disabled">Cancel Booking</button></td></tr>');
 	$('#subcontent').append('<br><br>');
 	
@@ -229,8 +229,8 @@ function fetchfulldata(){
 					$('input[name=foodgst]').val(foodgst);
 					$('input[name=totgst]').val(totalgst);
 					$('input[name=finalpr]').val(finalpr);
-					$('#category option[value='+category+']').attr('selected','selected');
-					$('#plan option[value='+plan+']').attr('selected','selected');
+					$("#category").val(category);
+					$('#plan').val(plan);
 					$('#status').html(status);
 					$('#coreupdatebutton').prop('disabled', false);
 					$('#otherupdatebutton').prop('disabled', false);
@@ -304,11 +304,12 @@ function coreupdatecheck(){
 					}
 					else{
 						alert(data.notavailable+"\n are not available");
-						loadolddata();
+						
 						$('#coreupdatebutton').prop('disabled', false);
 						$('#otherupdatebutton').prop('disabled', false);
 						$('#checkupdatebutton').prop('disabled',false);
 						$('#cancelbutton').prop('disabled',false);
+						loadolddata();
 					}
         }
     });
@@ -382,7 +383,7 @@ function loadolddata(){
 					$('input[name=foodgst]').val(foodgst);
 					$('input[name=totgst]').val(totalgst);
 					$('input[name=finalpr]').val(finalpr);
-					$('#category option[value='+category+']').attr('selected','selected');
-					$('#plan option[value='+plan+']').attr('selected','selected');
+					$("#category").val(category);
+					$('#plan').val(plan);
 					$('#status').html(status);
 }

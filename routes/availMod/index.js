@@ -1,14 +1,21 @@
 var express = require('express');
 var router = express.Router();
-var mongo = require('mongodb');
+// var mongo = require('mongodb');
 var assert = require('assert');
-var murl = "mongodb://admin:admin@ds141796.mlab.com:41796/cms";
+var mongoUtil = require('../../bin/mongoUtil');
+// var murl = "mongodb://admin:admin@ds227858.mlab.com:27858/cms";
 
 /* GET home page. */
 
 
 router.get('/', function (req, res) {
-	res.render('avail/index');
+	if (req.session.uid && req.session.email)
+		res.render('avail', {
+			session: req.session
+		});
+	else
+		res.redirect('/login');
+	// res.render('avail/index');
 });
 
 router.post('/checkfilled', function (req, res) {
@@ -16,7 +23,7 @@ router.post('/checkfilled', function (req, res) {
 	from = from.split("/");
 	var to = req.body.to;
 	to = to.split("/");
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		var collection = db.collection('avail');
 
@@ -43,7 +50,7 @@ router.post('/checkfilled', function (req, res) {
 });
 
 router.post('/getcat', function (req, res) {
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 
 		var cursor = db.collection('common').find({}).project({
@@ -74,12 +81,12 @@ router.post('/getcat', function (req, res) {
 router.post('/insertavail', function (req, res) {
 	/* chage date formate */
 	var from = req.body.fromdate.split("/");
-	from = from[2]+"-"+from[0]+"-"+from[1]
+	from = from[2] + "-" + from[0] + "-" + from[1]
 	var to = req.body.todate.split("/");
-	to = to[2]+"-"+to[0]+"-"+to[1]
+	to = to[2] + "-" + to[0] + "-" + to[1]
 	fromd = new Date(from)
 	tod = new Date(to)
-	
+
 	var Rooms = req.body.Rooms;
 	var prom = req.body.PromoCode;
 	var extrabed = req.body.extrabed;
@@ -117,7 +124,7 @@ router.post('/insertavail', function (req, res) {
 		}
 		from = yyyy + '-' + mm + '-' + dd;
 	}
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		var collection = db.collection('avail');
 		collection.insertMany(docarr, function (err, result) {
@@ -136,11 +143,11 @@ router.post('/insertavail', function (req, res) {
 router.post('/geteditdata', function (req, res) {
 	/* change date formate */
 	var edate = (req.body.edate).split("/");
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		var collection = db.collection('avail');
 		collection.find({
-			"date": edate[2]+"-"+edate[0]+"-"+edate[1]
+			"date": edate[2] + "-" + edate[0] + "-" + edate[1]
 		}).toArray(function (err, docs) {
 			assert.equal(err, null);
 			var jso = docs[0];
@@ -154,13 +161,13 @@ router.post('/geteditdata', function (req, res) {
 router.post('/updateavail', function (req, res) {
 	console.log();
 	var edate = req.body.edate.split("/");
-	edate = edate[2]+"-"+edate[0]+"-"+edate[1];
+	edate = edate[2] + "-" + edate[0] + "-" + edate[1];
 	console.log(edate);
 	var Rooms = req.body.Rooms;
 	var prom = req.body.PromoCode;
 	var extrabed = req.body.extrabed;
 	var plans = req.body.Plans;
-	console.log(Rooms+ " "+prom+" "+plans);
+	console.log(Rooms + " " + prom + " " + plans);
 	jso = {
 		"date": edate,
 		"room": Rooms,
@@ -168,7 +175,7 @@ router.post('/updateavail', function (req, res) {
 		"coupon": prom,
 		"Plans": plans
 	}
-	mongo.connect(murl, function (err, db) {
+	mongoUtil.connectToServer(function (err, db) {
 		assert.equal(null, err);
 		var collection = db.collection('avail');
 		collection.update({

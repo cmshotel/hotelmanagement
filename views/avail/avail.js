@@ -23,7 +23,7 @@ function maininsert() {
 	  </div>\
 	</div>\
 	<div class="avilForm col-md-4 col-sm-4 col-xs-12">\
-	  <button class="btn btn-primary" onclick="loadform()">Get Avibility Form</button>\
+	  <button class="btn btn-primary" onclick="loadform()">Get Availability Form</button>\
 	</div>\
   </div>\
   <span id="warningmsg"></span>\
@@ -44,7 +44,7 @@ function mainedit() {
 	  		</div>\
 		</div>\
 		<div class="avilForm col-md-4 col-sm-4 col-xs-12">\
-	  		<button class="btn btn-primary" onclick="loadeditform()">Edit Avibility Form</button>\
+	  		<button class="btn btn-primary" onclick="loadeditform()">Edit Availability Form</button>\
 		</div>\
   	</div>\
 	  <div id="formholder"></div>\
@@ -214,8 +214,7 @@ function insertavailability() {
 	var frdate = ftdate[0];
 	var tdate = ftdate[1];
 	var roomsarr = [],
-		plansarr = [];
-		console.log(cat_plans)
+		plansarr = []
 	var catcount = cat_plans.catagories.length;
 	var plancount = cat_plans.plans.length;
 	for (i = 0; i < catcount; i++) {
