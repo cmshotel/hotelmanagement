@@ -116,6 +116,7 @@ router.post('/getavail', function (req, res) {
 });
 
 router.post('/getgstrate', function (req, res) {
+	console.log("getgstrate");
 	roompr = req.body.roompr;
 	stayrate = 0;
 	foodrate = 0;

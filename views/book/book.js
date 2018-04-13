@@ -1,7 +1,8 @@
 function openbooking(v) {
+	console.log('open booking value '+v)
 
 	$("#bookinghold").html("<table cellpadding=\"10\">" +
-		"<tr><td>Catagory</td><td><input type=\"text\" value=" + v + " name=\"catagory\" readonly></td></tr>" +
+		"<tr><td>Catagory</td><td><input type=\"text\" value=\""+ v +"\" name=\"catagory\" readonly></td></tr>" +
 		"<tr><td>Plan</td><td><div id=\"planshold\"></div>" +
 		"<tr><td>Extrabed</td><td><input type=\"number\" min=\"0\" onchange=\"showquatation()\" value=\"0\" max=\"200\" name=\"Extrabed\"></td></tr>" +
 		"<tr><td>Child with Extrabed</td><td><input type=\"number\" min=\"0\" onchange=\"showquatation()\" max=\"200\" value=\"0\" name=\"Cwextra\"></td></tr>" +
@@ -301,7 +302,8 @@ function dobooking() {
 	cname = document.getElementsByName('cname')[0].value;
 	contact = document.getElementsByName('contact')[0].value;
 	email = document.getElementsByName('email')[0].value;
-	bookdate = document.getElementsByName('bookdate')[0].value;
+	bk = document.getElementsByName('bookdate')[0].value.split('/');
+	bookdate=bk[2]+"-"+bk[0]+"-"+bk[1];
 	rooms = document.getElementsByName('norooms')[0].value;
 	resdate = document.getElementsByName('resdate')[0].value;
 	chkin = cin;

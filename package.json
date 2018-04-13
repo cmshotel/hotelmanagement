@@ -10,11 +10,13 @@
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
-    "ejs": "^2.5.6",
+    "ejs": "~2.5.6",
     "express": "~4.15.5",
+    "express-fileupload": "~0.4.0",
+    "express-session": "~1.15.6",
+    "mongodb": "~2.2.31",
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5",
-    "mongodb": "^2.2.31",
-    "express-session": "~1.15.6"
+    "grapesjs": "~0.14.6"
   }
 }

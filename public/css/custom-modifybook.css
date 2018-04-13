@@ -1,0 +1,21 @@
+.pull-right {
+    float: right;
+   
+}
+.roundedbor{
+	 border-radius: 5px;
+}
+
+
+td,th{padding: 7px;
+text-align: center; }
+td.nopad{
+	padding: 0px !important;
+	color: black !important;
+}
+input[type=number]{
+    width: 80px;
+} 
+textarea {
+    resize: both;
+}

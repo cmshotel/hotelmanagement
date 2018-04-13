@@ -23,7 +23,7 @@ function maininsert() {
 	  </div>\
 	</div>\
 	<div class="avilForm col-md-4 col-sm-4 col-xs-12">\
-	  <button class="btn btn-primary" onclick="loadform()">Get Avibility Form</button>\
+	  <button class="btn btn-primary" onclick="loadform()">Get Availability Form</button>\
 	</div>\
   </div>\
   <span id="warningmsg"></span>\
@@ -44,7 +44,7 @@ function mainedit() {
 	  		</div>\
 		</div>\
 		<div class="avilForm col-md-4 col-sm-4 col-xs-12">\
-	  		<button class="btn btn-primary" onclick="loadeditform()">Edit Avibility Form</button>\
+	  		<button class="btn btn-primary" onclick="loadeditform()">Edit Availability Form</button>\
 		</div>\
   	</div>\
 	  <div id="formholder"></div>\
@@ -124,7 +124,7 @@ function loadform() {
 	availibility = "";
 	$.ajax({
 		type: "post",
-		url: "/avibility/checkfilled",
+		url: "/availability/checkfilled",
 		dataType: 'json',
 		async: false,
 		data: JSON.stringify({
@@ -145,7 +145,7 @@ function loadform() {
 				//get all catagories and plans available in hotel
 				$.ajax({
 					type: "post",
-					url: "/avibility/getcat",
+					url: "/availability/getcat",
 					async: false,
 					dataType: 'json',
 					data: JSON.stringify({
@@ -252,7 +252,7 @@ function insertavailability() {
 
 	$.ajax({
 		type: "post",
-		url: "/avibility/insertavail",
+		url: "/availability/insertavail",
 		dataType: 'json',
 		data: JSON.stringify({
 			"fromdate": frdate,
@@ -285,7 +285,7 @@ function loadeditform() {
 	var edate = $('#editAvaildate').val();
 	$.ajax({
 		type: "post",
-		url: "/avibility/checkfilled",
+		url: "/availability/checkfilled",
 		dataType: 'json',
 		async: false,
 		data: JSON.stringify({
@@ -299,7 +299,7 @@ function loadeditform() {
 				// if selected date has already available data then print "Already Available"
 				$.ajax({
 					type: "post",
-					url: "/avibility/getcat",
+					url: "/availability/getcat",
 					dataType: 'json',
 					async: false,
 					data: JSON.stringify({
@@ -312,7 +312,7 @@ function loadeditform() {
 				});
 				$.ajax({
 					type: "post",
-					url: "/avibility/geteditdata",
+					url: "/availability/geteditdata",
 					dataType: 'json',
 					async: false,
 					data: JSON.stringify({
@@ -472,7 +472,7 @@ function updateavailability() {
 	$.ajax({
 
 		type: "post",
-		url: "/avibility/updateavail",
+		url: "/availability/updateavail",
 		dataType: 'json',
 		data: JSON.stringify({
 

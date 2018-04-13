@@ -9,6 +9,8 @@ var fs = require('fs');
 var index = require('./routes');
 var avail = require('./routes/availMod/');
 var book = require('./routes/book/');
+var modifybook = require('./routes/modifybook/');
+var charts = require('./routes/charts/');
 var history = require('./routes/history/');
 var theme = require('./routes/theme');
 var app = express();
@@ -44,13 +46,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public/vendor')));
 app.use(express.static(path.join(__dirname, 'views/theme')));
 app.use(express.static(path.join(__dirname, 'views')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 /*
  */
 app.use('/', index);
-app.use('/avibility', avail);
+app.use('/availability', avail);
 app.use('/booking', book);
+app.use('/modifybooking',modifybook);
 app.use('/history', history);
 app.use('/theme', theme);
+app.use('/charts', charts);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

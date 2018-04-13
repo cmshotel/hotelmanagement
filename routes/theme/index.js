@@ -5,6 +5,7 @@ var router = express.Router();
 var bodyParser = require("body-parser");
 var assert = require("assert");
 var mongoUtil = require("../../bin/mongoUtil");
+var fileUpload = require('express-fileupload');
 
 router.get("/", function (req, res, next) {
   console.log(req.session);
@@ -12,7 +13,7 @@ router.get("/", function (req, res, next) {
     res.render("theme/index", {
       session: JSON.stringify(req.session)
     });
-  else res.render("theme/index");
+  else res.redirect('/login');
 });
 
 router.get("/loadContent", function (req, res, next) {
@@ -37,24 +38,28 @@ router.get("/loadContent", function (req, res, next) {
 });
 router.post("/sendContent", function (req, res, next) {
   var content = req.body;
-  console.log("Site Version" + req.body);
-  // req.body = {
-  //   action: "jups",
-  //   content: req.body
-  // };
-  // mongoUtil.connectToServer(function (err, db) {
-  //   if (err) throw err;
-  //   db.collection("contents").updateOne({
-  //       action: "jups"
-  //     },
-  //     req.body, {
-  //       upsert: true
-  //     }
-  //   );
-  // });
-  // res.json({
-  //   data: "success"
-  // });
+  req.body = {
+    action: "jups",
+    content: req.body
+  };
+  mongoUtil.connectToServer(function (err, db) {
+    if (err) throw err;
+    db.collection("contents").updateOne({
+        action: "jups"
+      },
+      req.body, {
+        upsert: true
+      }
+    );
+  });
+  res.json({
+    data: "success"
+  });
+});
+
+router.post('/upload/assets', function (req, res, next) {
+  console.log(req);
+  console.log(req.files);
 });
 
 router.get('/version', function (req, res, next) {
