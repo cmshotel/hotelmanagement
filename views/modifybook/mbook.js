@@ -28,6 +28,8 @@ finalpr=""
 amtpaid="" 
 pmtinfo="" 
 status="" 
+corechange=false;
+
 old_json=null
 
 
@@ -86,11 +88,60 @@ function fetchresults(){
     });
 
 }
+function changecore(){
+	corechange=true;
+
+}
+function custandpaymentedit(){
+
+	$('#coreupdatebutton').prop('disabled', true);
+	$('#otherupdatebutton').prop('disabled', true);
+	$('#checkupdatebutton').prop('disabled',true);	
+	$('#cancelbutton').prop('disabled',true);
+
+	oid=old_json._id
+	new_Json={
+	"cname":$('input[name=custname]').val(),
+	"contact":$('input[name=phno]').val(),
+	"email":$('input[name=email]').val(),
+	"amtpaid":$('input[name=amountpaid]').val(),
+	"pmtinfo": document.getElementsByName("paymentinfo")[0].value
+	
+	}
+	$.ajax({
+
+						type: "post",
+						url: "/modifybooking/otherupdate",
+						dataType: 'json',
+
+						data: JSON.stringify({
+							"oid":oid,
+							"updated":new_Json
+						}),
+						contentType: 'application/json',
+						success: function (data) {
+							if(data.success){
+								alert("Booking Data Modified");
+								location.reload();
+							}
+							else{
+								alert("Booking Data Not Modified");
+							}
+
+						$('#coreupdatebutton').prop('disabled', false);
+						$('#otherupdatebutton').prop('disabled', false);
+						$('#checkupdatebutton').prop('disabled',false);	
+						$('#cancelbutton').prop('disabled',false);
+
+						}
+					});
+
+}
 function fetchfulldata(){
 	$('#editbutton').attr("disabled", "disabled");
 	
 	bid=$('input[name=bookid]:checked').val();
-	console.log(bid);
+	
 	
 	$('#subcontent').html('');
 	$('#subcontent').append('<fieldset id="otherfield"><legend><h2>Customer & Payment Details</h2></legend></fieldset>');
@@ -108,8 +159,8 @@ function fetchfulldata(){
 	$('#subcontent').append('<fieldset id="corefield"><legend><h2>Core Modification</h2></legend></fieldset>');
 	$('#corefield').append('<table id="coreedit"></table>');
 	$('#coreedit').append('<tr><td>Check in Date</td><td><input type="date" onchange="calculatenights()" name="chkin"></td><td>Check out Date</td><td><input type="date" onchange="calculatenights()" name="chkout" ></td></tr>');
-  	$('#coreedit').append('<tr><td>Category</td><td><select id="category" name="category" ></select></td><td>Plan</td><td><select id="plan" name="plan" ></select></td></tr>');
-  	$('#coreedit').append('<tr><td>Nights</td><td><input type="number" min="1"  name="nights" readonly></td><td>Rooms</td><td><input type="number" min="1"  name="rooms" ></td></tr>');  
+  	$('#coreedit').append('<tr><td>Category</td><td><select id="category" name="category" onchange="changecore()"></select></td><td>Plan</td><td><select id="plan" name="plan" onchange="changecore()"></select></td></tr>');
+  	$('#coreedit').append('<tr><td>Nights</td><td><input type="number" min="1"  name="nights" readonly></td><td>Rooms</td><td><input type="number" min="1"  name="rooms" onchange="changecore()" ></td></tr>');  
  	$('#coreedit').append('<tr><td>Extrabed</td><td><input type="number" min="0"  name="extrabed" ></td></tr>');
   	$('#coreedit').append('<tr><td>Child with Extrabed</td><td><input type="number" min="0"  name="cwextrabed" ></td><td>Child without Extrabed</td><td><input type="number" min="0"  name="cwoextrabed" ></td></tr>');
 
@@ -126,7 +177,7 @@ function fetchfulldata(){
 
 	$('#coreedit').append('<tr><td>Total GST</td><td><input type="number" min="0"  name="totgst" ></td><td>Final Price</td><td><input type="number" min="1"  name="finalpr" ></td></tr>');
 	$('#coreedit').append('<tr><td>Status</td><td><div id="status"></div></td></tr>');
-	$('#coreedit').append('<tr><td colspan="2"><button id="checkupdatebutton" onclick="coreupdatecheck()" disabled="disabled">Check Update</button></td><td colspan="2"><button id="coreupdatebutton" onclick="alert(\'at this moment this is not working\')" disabled="disabled">Update Booking</button></td></tr>');
+	$('#coreedit').append('<tr><td colspan="2"><button id="checkupdatebutton" onclick="coreupdatecheck()" disabled="disabled">Check Update</button></td><td colspan="2"><button id="coreupdatebutton" onclick="makecoreupldate()" disabled="disabled">Update Booking</button></td></tr>');
 	$('#coreedit').append('<tr><td colspan="4"><button id="cancelbutton" onclick="cancelbooking()" disabled="disabled">Cancel Booking</button></td></tr>');
 	$('#subcontent').append('<br><br>');
 	
@@ -287,20 +338,14 @@ function coreupdatecheck(){
         contentType: 'application/json',
         success: function(data){
         		
-				
+					console.log(data.available)
 					if(data.available){
 						alert("Changes available");
 
 						/*calculate prices and gst
 						*/
+						calculategst()
 
-
-
-
-						$('#coreupdatebutton').prop('disabled', false);
-						$('#otherupdatebutton').prop('disabled', false);
-						$('#checkupdatebutton').prop('disabled',false);
-						$('#cancelbutton').prop('disabled',false);
 					}
 					else{
 						alert(data.notavailable+"\n are not available");
@@ -317,6 +362,7 @@ function coreupdatecheck(){
 }
 //Calculate Nights
 function calculatenights(){
+	corechange=true;
 	chin=$('input[name=chkin]').val();
 	chout=$('input[name=chkout]').val();
 	ci = new Date(chin);
@@ -355,6 +401,8 @@ function cancelbooking(){
 	}
 }
 
+//load original booking data without modified
+
 function loadolddata(){
 
 					$('input[name=custname]').val(name);
@@ -386,4 +434,222 @@ function loadolddata(){
 					$("#category").val(category);
 					$('#plan').val(plan);
 					$('#status').html(status);
+}
+
+function calculategst(){
+	newgststay = 0
+	newgstfood = 0
+	newtotgststay = 0;
+	newtotgstfood = 0;
+	norooms=$('input[name=rooms]').val();
+	chkind=$('input[name=chkin]').val();
+	chkoutd=$('input[name=chkout]').val();
+	chkinpass=chkind.split('-')
+	chkoutpass= chkoutd.split('-')
+	nchkin=chkinpass[1]+'/'+chkinpass[2]+'/'+chkinpass[0];
+	nchkout=chkoutpass[1]+'/'+chkoutpass[2]+'/'+chkoutpass[0];
+	nightscou = parseInt($('input[name=nights]').val())
+	roombase=$('input[name=roompr]').val()
+	cat=$("#category").val();
+	pln=$('#plan').val();
+	newroompr=0
+	newtotroompr=0
+	newexbedrate=0
+	newplanpr=0
+	/*
+	plan base retrive remaining
+
+	*/
+	/*planbase = document.getElementsByName('plancost')[0].value*/
+
+			$.ajax({
+                type: "post",
+                url: "/booking/getavail",
+                dataType: 'json',
+                data: JSON.stringify({
+                  "checkindate": nchkin,
+                  "checkoutdate": nchkout,
+                  "norooms": norooms,
+                  "nights": nightscou
+                }),
+                contentType: 'application/json',
+				success: function (data) {
+				
+					for(i=0;i<data.jsa.length;i++){
+						if(data.jsa[i].catagory.localeCompare(cat)==0){
+								newroompr=data.jsa[i].roomprice
+								newtotroompr=data.jsa[i].price
+								break;
+						}
+					}
+					for(i=0;i<data.plans.plannames.length;i++){
+						if(data.plans.plannames[i].localeCompare(pln)==0){
+							newplanpr=data.plans.planprices[i]
+							break;
+						}
+					}
+					newexbedrate=data.ebedprice
+
+					newnoofexbed = $('input[name=extrabed]').val();
+					newcwex = $('input[name=cwextrabed]').val();
+					newcwoex = $('input[name=cwoextrabed]').val();
+					if (newnoofexbed == null || newnoofexbed == "") {
+						newnoofexbed = 0;
+					}
+					if (newcwex == null || newcwex == "") {
+						newcwex = 0;
+					}
+					if (newcwoex == null || newcwoex == "") {
+						newcwoex = 0;
+					}
+					planbase=newplanpr*norooms
+					totchildwoextracost = (planbase / (4 * (parseFloat(norooms)))) * newcwoex ;
+					totchildwextracost = ( newcwex * parseFloat(newexbedrate)) + (planbase / (4 * (parseFloat(norooms)))) * newcwex;
+					totextrabedcost = (newnoofexbed * parseFloat(newexbedrate)) + (planbase / (2 * parseFloat(norooms))) * newnoofexbed ;
+					$('input[name=roompr]').val(newroompr);
+					$('input[name=totroompr]').val(newtotroompr);
+					$('input[name=exbedpr]').val(totextrabedcost);
+					$('input[name=cwexbedpr]').val(totchildwextracost);
+					$('input[name=cwoexbedpr]').val(totchildwoextracost);
+					$('input[name=planpr]').val(planbase);
+
+
+
+
+					$.ajax({
+
+						type: "post",
+						url: "/booking/getgstrate",
+						dataType: 'json',
+
+						data: JSON.stringify({
+							"roompr": newroompr
+						}),
+						contentType: 'application/json',
+						success: function (data) {
+							$('input[name=staygstrate]').val(data.stayrate);
+							$('input[name=foodgstrate]').val(data.foodrate);
+							
+							newgststay = parseFloat(data.stayrate);
+							newgstfood = parseFloat(data.foodrate);
+
+							newtotgststay = parseFloat(newtotroompr) * newgststay / 100;
+
+							newtotgstfood = parseFloat(newplanpr*norooms) * newgstfood / 100;
+							
+							//extrabed food
+
+							
+							
+							
+							newtotgstfood += (parseFloat(planbase) * newnoofexbed  / (2 * (parseFloat(norooms)))) * newgstfood / 100.0;
+
+							//extrabed stay
+							newtotgststay += (parseFloat(newexbedrate) * newnoofexbed ) * newgststay / 100.0;
+
+							//child with extra bed
+							newtotgstfood += (parseFloat(planbase) * newcwex  / (4 * (parseFloat(norooms)))) * newgstfood / 100.0;
+
+							//child with exbed stay
+							newtotgststay += (parseFloat(newexbedrate) * newcwex ) * newgststay / 100.0;
+
+							//child without exbed
+
+							newtotgstfood += (parseFloat(planbase) * newcwoex / (4 * (parseFloat(norooms)))) * newgstfood / 100.0;
+							newtothotelcost= newtotroompr + planbase + totchildwextracost + totchildwoextracost + totextrabedcost
+							
+								$('input[name=tothotcost]').val(newtothotelcost);
+								$('input[name=staygstrate]').val(newgststay);
+								$('input[name=foodgstrate]').val(newgstfood);
+								$('input[name=staygst]').val(newtotgststay);
+								$('input[name=foodgst]').val(newtotgstfood);
+								newtotgst=newtotgstfood+newtotgststay
+								$('input[name=totgst]').val(newtotgst);
+								$('input[name=finalpr]').val(newtothotelcost+newtotgst);
+
+
+								corechange=false;
+
+								$('#coreupdatebutton').prop('disabled', false);
+								$('#otherupdatebutton').prop('disabled', false);
+								$('#checkupdatebutton').prop('disabled',false);
+								$('#cancelbutton').prop('disabled',false);
+									
+
+
+						}
+					});
+
+
+				}});
+}
+
+function makecoreupldate(){
+
+	corechange=false;
+
+	$('#coreupdatebutton').prop('disabled', true);
+	$('#otherupdatebutton').prop('disabled', true);
+	$('#checkupdatebutton').prop('disabled',true);
+	$('#cancelbutton').prop('disabled',true);
+
+	if(corechange){
+		alert("please click on Check Update Button");
+		return
+	}
+	oldid=old_json._id
+	new_json={
+	"rooms": parseInt($('input[name=rooms]').val()),
+	"chkin" :$('input[name=chkin]').val(),
+			"chkout":$('input[name=chkout]').val(),
+			"nights":$('input[name=nights]').val(),
+			"catagory":$('#category').val(),
+		"plan":$('#plan').val(),
+			"exbed":$('input[name=extrabed]').val(),
+		"cwextrabed":$('input[name=cwextrabed]').val(),					
+			"cwoextrabed":$('input[name=cwoextrabed]').val(),
+		"roomprice":$('input[name=roompr]').val(),					
+			"totroomcost":$('input[name=totroompr]').val(),
+			"plancharges":$('input[name=planpr]').val(),
+		"extrabed":$('input[name=exbedpr]').val(),
+			"childwexcost":$('input[name=cwexbedpr]').val(),
+			"childwoexcost":$('input[name=cwoexbedpr]').val(),
+			"tothotelcost":$('input[name=tothotcost]').val(),   
+			"staygstrate":$('input[name=staygstrate]').val(),
+	"foodgstrate":$('input[name=foodgstrate]').val(),
+	"staygst":	$('input[name=staygst]').val(), 
+	"foodgst":$('input[name=foodgst]').val(),
+		"totalgst":$('input[name=totgst]').val(),
+	"finalpr":$('input[name=finalpr]').val()
+	}
+
+	$.ajax({
+
+						type: "post",
+						url: "/modifybooking/makecoreupdate",
+						dataType: 'json',
+
+						data: JSON.stringify({
+							"ojson":old_json,
+							"njson":new_json,
+							"nid":old_json._id
+						}),
+						contentType: 'application/json',
+						success: function (data) {
+							if(data.success){
+								alert("Booking Modified");
+								location.reload();
+							}
+							else{
+								alert("Booking Not Modified");
+							}
+								$('#coreupdatebutton').prop('disabled', false);
+								$('#otherupdatebutton').prop('disabled', false);
+								$('#checkupdatebutton').prop('disabled',false);
+								$('#cancelbutton').prop('disabled',false);
+
+						}
+					});
+
+
 }

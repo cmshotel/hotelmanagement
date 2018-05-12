@@ -108,7 +108,7 @@ router.post('/getavail', function (req, res) {
 				"ebedprice": parseFloat(extrabedpr)
 			}
 			db.close();
-			console.log(jso);
+			
 			res.send(jso);
 		});
 
