@@ -73,6 +73,7 @@ function showquatation() {
 					break;
 				}
 			}
+			
 			totplancost = parseFloat(planprices[temp]) * parseFloat(document.getElementById('norooms').value)
 
 			$('#quotetab').append('<tr><td>Applied Plan Charges (₹) :</td><td><input type="number" min="0" name="plancost" value="' + totplancost + '"</td></tr>');

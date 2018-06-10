@@ -320,6 +320,7 @@ router.get("/login", function (req, res, next) {
 });
 
 router.get("/dashboard", function (req, res, next) {
+
   var user = require('../bin/model/priviledge');
   if (req.session.uid && req.session.email)
     res.render("dashboard", {

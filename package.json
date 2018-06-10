@@ -14,9 +14,12 @@
     "express": "~4.15.5",
     "express-fileupload": "~0.4.0",
     "express-session": "~1.15.6",
+    "grapesjs": "~0.14.6",
+    "html-pdf": "^2.2.0",
+    "html-to-pdf": "^0.1.11",
     "mongodb": "~2.2.31",
     "morgan": "~1.9.0",
-    "serve-favicon": "~2.4.5",
-    "grapesjs": "~0.14.6"
+    "nodemailer": "^4.6.4",
+    "serve-favicon": "~2.4.5"
   }
 }

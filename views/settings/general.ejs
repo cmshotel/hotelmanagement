@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Hotel CMS! | </title>
+
+        <!-- Bootstrap -->
+        <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="/nprogress/nprogress.css" rel="stylesheet">
+        <!-- iCheck -->
+        <link href="/iCheck/skins/flat/green.css" rel="stylesheet">
+        <!-- bootstrap-progressbar -->
+        <link href="/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+        <!-- JQVMap -->
+        <link href="/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+        <!-- bootstrap-daterangepicker -->
+        <link href="/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+        <!-- Custom Theme Style -->
+        <link href="/css/custom.css" rel="stylesheet">
+        <link href="/css/custom-book.css" rel="stylesheet">
+
+    </head>
+
+    <body class="nav-md">
+        <div class="container body">
+            <div class="main_container">
+
+                <% include ../sidebar %>
+
+                    <!-- top navigation -->
+                    <% include ../nav-top %>
+                        <!-- /top navigation -->
+
+                        <!-- page content -->
+                        <div id="main_col" class="right_col" role="main">
+                            <h2>General Settings</h2>
+                            <form class="form-horizontal form-label">
+                                <div class="item form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="name">Site Title
+                                    </label>
+                                    <div class="col-md-5 col-sm-6 col-xs-12">
+                                        <input type="text" id="name" name="sitename" placeholder="Hotel Taj" class="form-control has-feedback-left col-md-7 col-xs-12">
+                                        <span class="fa fa-home form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12">TimeZone</label>
+                                    <div class="col-md-5 col-sm-6 col-xs-12">
+                                        <select class="select2_group form-control form-control has-feedback-left col-md-12 col-xs-12" id="timezone">
+                                            <optgroup label="Alaskan/Hawaiian Time Zone">
+                                                <option value="AK">Alaska</option>
+                                                <option value="HI">Hawaii</option>
+                                            </optgroup>
+                                            <optgroup label="Pacific Time Zone">
+                                                <option value="CA">California</option>
+                                                <option value="NV">Nevada</option>
+                                                <option value="OR">Oregon</option>
+                                                <option value="WA">Washington</option>
+                                            </optgroup>
+                                            <optgroup label="Mountain Time Zone">
+                                                <option value="AZ">Arizona</option>
+                                                <option value="CO">Colorado</option>
+                                                <option value="ID">Idaho</option>
+                                                <option value="MT">Montana</option>
+                                                <option value="NE">Nebraska</option>
+                                                <option value="NM">New Mexico</option>
+                                                <option value="ND">North Dakota</option>
+                                                <option value="UT">Utah</option>
+                                                <option value="WY">Wyoming</option>
+                                            </optgroup>
+                                            <optgroup label="Central Time Zone">
+                                                <option value="AL">Alabama</option>
+                                                <option value="AR">Arkansas</option>
+                                                <option value="IL">Illinois</option>
+                                                <option value="IA">Iowa</option>
+                                                <option value="KS">Kansas</option>
+                                                <option value="KY">Kentucky</option>
+                                                <option value="LA">Louisiana</option>
+                                                <option value="MN">Minnesota</option>
+                                                <option value="MS">Mississippi</option>
+                                                <option value="MO">Missouri</option>
+                                                <option value="OK">Oklahoma</option>
+                                                <option value="SD">South Dakota</option>
+                                                <option value="TX">Texas</option>
+                                                <option value="TN">Tennessee</option>
+                                                <option value="WI">Wisconsin</option>
+                                            </optgroup>
+                                            <optgroup label="Eastern Time Zone">
+                                                <option value="CT">Connecticut</option>
+                                                <option value="DE">Delaware</option>
+                                                <option value="FL">Florida</option>
+                                                <option value="GA">Georgia</option>
+                                                <option value="IN">Indiana</option>
+                                                <option value="ME">Maine</option>
+                                                <option value="MD">Maryland</option>
+                                                <option value="MA">Massachusetts</option>
+                                                <option value="MI">Michigan</option>
+                                                <option value="NH">New Hampshire</option>
+                                                <option value="NJ">New Jersey</option>
+                                                <option value="NY">New York</option>
+                                                <option value="NC">North Carolina</option>
+                                                <option value="OH">Ohio</option>
+                                                <option value="PA">Pennsylvania</option>
+                                                <option value="RI">Rhode Island</option>
+                                                <option value="SC">South Carolina</option>
+                                                <option value="VT">Vermont</option>
+                                                <option value="VA">Virginia</option>
+                                                <option value="WV">West Virginia</option>
+                                            </optgroup>
+                                        </select>
+                                        <span class="fa fa-clock-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="dateformate">Date Formate
+                                    </label>
+                                    <div class="col-md-5 col-sm-6 col-xs-12">
+                                        <select class="select2_group form-control form-control has-feedback-left col-md-12 col-xs-12" id="dateformate">
+                                            <option value="">Choose..</option>
+                                            <option value="ff dd, yyyy" id="date1"></option>
+                                            <option value="yyyy-mm-dd" id="date2"></option>
+                                            <option value="mm/dd/yyyy" id="date3"></option>
+                                            <option value="dd/mm/yyyy" id="date4"></option>
+                                        </select>
+                                        <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="timeformate">Time Formate
+                                    </label>
+                                    <div class="col-md-5 col-sm-6 col-xs-12">
+                                        <select class="select2_group form-control form-control has-feedback-left col-md-12 col-xs-12" id="timeformate">
+                                            <option value="">Choose..</option>
+                                            <option value="HH:MM A" id="time1"></option>
+                                            <option value="HH:MM P" id="time2"></option>
+                                            <option value="HH:MM" id="time3"></option>
+                                        </select>
+                                        <span class="fa fa-clock-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="weekstart">Week Strat
+                                    </label>
+                                    <div class="col-md-5 col-sm-6 col-xs-12">
+                                        <select class="select2_group form-control form-control has-feedback-left col-md-12 col-xs-12" id="weekstart">
+                                            <option value="">Choose..</option>
+                                            <option value="Sunday">Sunday</option>
+                                            <option value="Monday">Monday</option>
+                                        </select>
+                                        <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="item form-group">
+                                    <div class="control-label col-md-7 col-sm-4 col-xs-12">
+                                        <button id="saveGenral" class="btn btn-success">
+                                            <span class="glyphicon glyphicon-saved" aria-hidden="true"></span>
+                                            <span class="glyphicon-class">Save</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /page content -->
+
+                        <!-- footer content -->
+                        <footer>
+                            <div class="pull-right">
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </footer>
+                        <!-- /footer content -->
+            </div>
+        </div>
+
+        <!-- jQuery -->
+        <script src="/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- FastClick -->
+        <script src="/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="/nprogress/nprogress.js"></script>
+        <!-- gauge.js -->
+        <script src="/gauge.js/dist/gauge.min.js"></script>
+        <!-- bootstrap-progressbar -->
+        <script src="/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        <!-- iCheck -->
+        <script src="/iCheck/icheck.min.js"></script>
+        <!-- Skycons -->
+        <script src="/skycons/skycons.js"></script>
+        <!-- Flot -->
+        <script src="/Flot/jquery.flot.js"></script>
+        <script src="/Flot/jquery.flot.pie.js"></script>
+        <script src="/Flot/jquery.flot.time.js"></script>
+        <script src="/Flot/jquery.flot.stack.js"></script>
+        <script src="/Flot/jquery.flot.resize.js"></script>
+        <!-- Flot plugins -->
+        <script src="/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+        <script src="/flot-spline/js/jquery.flot.spline.min.js"></script>
+        <script src="/flot.curvedlines/curvedLines.js"></script>
+        <!-- DateJS -->
+        <script src="/DateJS/build/date.js"></script>
+        <!-- bootstrap-daterangepicker -->
+        <script src="/moment/min/moment.min.js"></script>
+        <script src="/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <!-- bootstrap-datetimepicker -->
+        <script src="/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+        <!-- Custom Theme Scripts -->
+        <script src="/js/custom.min.js"></script>
+        <!-- Custom avibility functionality Scripts -->
+        <script src="/avail/avail.js"></script>
+
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                // var general = "general";
+                $.ajax({
+                    type: "post",
+                    url: "loadSettings",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        "actions": "general"
+                    }),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        document.getElementById("name").value = data.name;
+                        document.getElementById("timezone").value = data.timezone;
+                        document.getElementById("dateformate").value = data.dateformate;
+                        document.getElementById("timeformate").value = data.timeformate;
+                        document.getElementById("weekstart").value = data.weekstart;
+
+                    }
+                });
+
+
+                var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August",
+                    "September", "October", "       November", "December"
+                ];
+                var d = new Date();
+                var m = d.getMonth();
+                var mm = monthNames[m];
+                var dd = d.getDate();
+                var yy = d.getFullYear();
+                document.getElementById("date1").innerHTML = mm + " " + dd + ", " + yy + "    F D, Y";
+                document.getElementById("date2").innerHTML = yy + "-" + m + "-" + dd + "          Y-M-D";
+                document.getElementById("date3").innerHTML = m + "/" + dd + "/" + yy + "          M/D/Y";
+                document.getElementById("date4").innerHTML = dd + "/" + m + "/" + yy + "          D/M/Y";
+                console.log(d);
+                var hours = d.getHours() % 12 || 12;
+                var minitue = d.getMinutes();
+                var hour = d.getHours();
+                document.getElementById("time1").innerHTML = hours + ":" + minitue + " AM";
+                document.getElementById("time2").innerHTML = hours + ":" + minitue + " PM";
+                document.getElementById("time3").innerHTML = hour + ":" + minitue;
+
+                /*$('#editGeneral').on('click', function(e){
+                    e.preventDefault();
+                    $("#name").prop("disabled", false);
+                    $("#timezone").prop("disabled", false);
+                    $("#dateformate").prop("disabled", false);
+                    $("#timeformate").prop("disabled", false);
+                    $("#weekstart").prop("disabled", false);
+                });*/
+
+
+
+                $('#saveGenral').on('click', function (e) {
+                    e.preventDefault();
+                    var name = $('#name').val();
+                    var timezone = $('#timezone :selected').val();
+                    var dateformate = $('#dateformate :selected').val();
+                    var timeformate = $('#timeformate :selected').val();
+                    var weekstart = $('#weekstart :selected').val();
+                    $.ajax({
+                        type: "post",
+                        url: "general",
+                        dataType: "json",
+                        data: JSON.stringify({
+                            "name": name,
+                            "timezone": timezone,
+                            "dateformate": dateformate,
+                            "timeformate": timeformate,
+                            "weekstart": weekstart
+                        }),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            window.location.reload();
+                        }
+                    });
+                });
+            });
+        </script>
+
+    </body>
+
+</html>

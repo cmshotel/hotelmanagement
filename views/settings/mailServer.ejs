@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Hotel CMS! | </title>
+
+        <!-- Bootstrap -->
+        <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="/nprogress/nprogress.css" rel="stylesheet">
+        <!-- iCheck -->
+        <link href="/iCheck/skins/flat/green.css" rel="stylesheet">
+        <!-- bootstrap-progressbar -->
+        <link href="/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+        <!-- JQVMap -->
+        <link href="/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+        <!-- bootstrap-daterangepicker -->
+        <link href="/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+        <!-- Custom Theme Style -->
+        <link href="/css/custom.css" rel="stylesheet">
+        <link href="/css/custom-book.css" rel="stylesheet">
+
+    </head>
+
+    <body class="nav-md">
+        <div class="container body">
+            <div class="main_container">
+
+                <% include ../sidebar %>
+
+                    <!-- top navigation -->
+                    <% include ../nav-top %>
+                        <!-- /top navigation -->
+
+                        <!-- page content -->
+                        <div id="main_col" class="right_col" role="main">
+                            <h2>Mail Server</h2>
+                            <form class="form-horizontal form-label">
+                                <div class="item form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="mailserver">Mail Server
+                                    </label>
+                                    <div class="col-md-5 col-sm-6 col-xs-12">
+                                        <input type="text" id="mailserver" name="mailserver" placeholder="smtp.gmail.com" class="form-control has-feedback-left col-md-7 col-xs-12">
+                                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="email">Mail Address
+                                    </label>
+                                    <div class="col-md-5 col-sm-6 col-xs-12">
+                                        <input type="email" id="email" name="email" placeholder="example@gmail.com" class="form-control has-feedback-left col-md-7 col-xs-12">
+                                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="password">Mail Password
+                                    </label>
+                                    <div class="col-md-5 col-sm-6 col-xs-12">
+                                        <input type="password" id="pwd" name="pwd" placeholder="Password" class="form-control has-feedback-left col-md-7 col-xs-12"
+                                            data-validate-length-range="8">
+                                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12">Mail Security
+                                    </label>
+                                    <div class="col-md-2 col-sm-6 col-xs-12">
+                                        SSL
+                                        <input type="radio" class="certificate" name="cert" value="SSL" checked="" /> TSL
+                                        <input type="radio" class="certificate" name="cert" value="TSL" />
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <div class="control-label col-md-7 col-sm-3 col-xs-12">
+                                        <button id="saveGenral" class="btn btn-success">
+                                            <span class="glyphicon glyphicon-saved" aria-hidden="true"></span>
+                                            <span class="glyphicon-class">Save</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /page content -->
+
+                        <!-- footer content -->
+                        <footer>
+                            <div class="pull-right">
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </footer>
+                        <!-- /footer content -->
+            </div>
+        </div>
+
+        <!-- jQuery -->
+        <script src="/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- FastClick -->
+        <script src="/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="/nprogress/nprogress.js"></script>
+        <!-- gauge.js -->
+        <script src="/gauge.js/dist/gauge.min.js"></script>
+        <!-- bootstrap-progressbar -->
+        <script src="/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        <!-- iCheck -->
+        <script src="/iCheck/icheck.min.js"></script>
+        <!-- Skycons -->
+        <script src="/skycons/skycons.js"></script>
+        <!-- Flot -->
+        <script src="/Flot/jquery.flot.js"></script>
+        <script src="/Flot/jquery.flot.pie.js"></script>
+        <script src="/Flot/jquery.flot.time.js"></script>
+        <script src="/Flot/jquery.flot.stack.js"></script>
+        <script src="/Flot/jquery.flot.resize.js"></script>
+        <!-- Flot plugins -->
+        <script src="/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+        <script src="/flot-spline/js/jquery.flot.spline.min.js"></script>
+        <script src="/flot.curvedlines/curvedLines.js"></script>
+        <!-- DateJS -->
+        <script src="/DateJS/build/date.js"></script>
+        <!-- bootstrap-daterangepicker -->
+        <script src="/moment/min/moment.min.js"></script>
+        <script src="/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <!-- bootstrap-datetimepicker -->
+        <script src="/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+        <!-- Custom Theme Scripts -->
+        <script src="/js/custom.min.js"></script>
+        <!-- Custom avibility functionality Scripts -->
+        <script src="/avail/avail.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $.ajax({
+                    type: "post",
+                    url: "loadSettings",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        "actions": "mailserver"
+                    }),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        /*console.log(data);*/
+                        document.getElementById("mailserver").value = data.server;
+                        document.getElementById("email").value = data.email;
+                        document.getElementById("pwd").value = data.password;
+                        $("input[name=cert][value=" + data.certificate + "]").prop('checked', true);
+                    }
+                });
+
+                $('#editGeneral').on('click', function (e) {
+                    e.preventDefault();
+                    $("#mailserver").prop("disabled", false);
+                    $("#email").prop("disabled", false);
+                    $("#pwd").prop("disabled", false);
+                });
+
+                $('#saveGenral').on('click', function (e) {
+                    e.preventDefault();
+                    var mailserver = $('#mailserver').val();
+                    var email = $('#email').val();
+                    var password = $('#pwd').val();
+                    var certificate = $('input[name=cert]:checked').val();
+                    if (certificate == 'SSL') {
+                        var port = 465;
+                    } else {
+                        var port = 587;
+                    }
+
+                    $.ajax({
+                        type: "post",
+                        url: "mailServer",
+                        dataType: "json",
+                        data: JSON.stringify({
+                            "mailserver": mailserver,
+                            "email": email,
+                            "password": password,
+                            "certicficate": certificate,
+                            "port": port
+                        }),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (data.success == true) {
+                                location.reload();
+                            }
+                        }
+                    });
+                });
+            })
+        </script>
+    </body>
+
+</html>

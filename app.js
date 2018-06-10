@@ -13,6 +13,7 @@ var modifybook = require('./routes/modifybook/');
 var charts = require('./routes/charts/');
 var history = require('./routes/history/');
 var theme = require('./routes/theme');
+var settings = require('./routes/settings');
 var app = express();
 
 // view engine setup
@@ -56,6 +57,7 @@ app.use('/modifybooking',modifybook);
 app.use('/history', history);
 app.use('/theme', theme);
 app.use('/charts', charts);
+app.use('/settings', settings);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
